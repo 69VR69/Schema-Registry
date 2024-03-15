@@ -1,0 +1,24 @@
+# Typescript result
+app
+
+# Dependency directories
+node_modules/
+
+# Optional npm cache directory
+.npm
+
+# IDEs
+.vscode
+.idea
+*.iml
+.atom-build.json
+.project
+coverage
+dist
+
+# Config
+.env
+
+# Snyk
+.dccache
+.eslintcache
