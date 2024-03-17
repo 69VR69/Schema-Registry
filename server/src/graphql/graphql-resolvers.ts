@@ -125,14 +125,16 @@ export const mocked_resolvers = {
         where: { id: args.id },
       });
     },
-    connections: async (parent: any, args: any, context: any) => {
-      return await context.prisma.connection.findMany();
+
+    // DONE
+    connections: async (parent: any, args: any, {dataSources }) => {
+      return dataSources.connectionsDb.getAllConnections();
     },
-    connection: async (parent: any, args: any, context: any) => {
-      return await context.prisma.connection.findUnique({
-        where: { id: args.id },
-      });
+    connection: async (parent: any, args: any, {dataSources }) => {
+      return dataSources.connectionsDb.getConnectionById(args.id);
     },
+    // DONE
+
     notifications: async (parent: any, args: any, context: any) => {
       return await context.prisma.notification.findMany();
     },
