@@ -1,11 +1,13 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-import {typeDefs} from './graphql/graphql-schema.js';
-import {resolvers} from './graphql/graphql-resolvers.js';
+import { typeDefs } from './graphql/graphql-schema.js';
+import { mocked_resolvers, resolvers } from './graphql/graphql-resolvers.js';
+
+const IS_MOCKED = true;
 
 const server = new ApolloServer({
     typeDefs,
-    resolvers,
+    resolvers: IS_MOCKED ? mocked_resolvers : resolvers,
 });
 
 // Passing an ApolloServer instance to the `startStandaloneServer` function:

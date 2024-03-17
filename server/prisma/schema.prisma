@@ -10,18 +10,23 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-  posts Post[]
+model Connection {
+  id          String   @id @default(uuid())
+  technology  String
+  status      String
+  residence   Residence @relation(fields: [residenceId], references: [id])
+  residenceId String
 }
 
-model Post {
-  id        Int     @id @default(autoincrement())
-  title     String
-  content   String?
-  published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
+model Residence {
+  id          String      @id @default(uuid())
+  address     String
+  connections Connection[]
+}
+
+model Notification {
+  id        String @id @default(uuid())
+  message   String
+  source    String
+  timestamp String
 }

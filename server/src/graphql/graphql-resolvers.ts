@@ -57,7 +57,7 @@ const notifications = [
     ];
 
 // Resolvers define the technique for fetching the types in the schema.
-export const resolvers = {
+export const mocked_resolvers = {
   Query: {
     residences: () => residences,
     residence: (parent: any, args: { id: string; }) => {
@@ -110,6 +110,75 @@ export const resolvers = {
   Connection: {
     residence: (parent) => {
       return residences.find(residence => residence.id === parent.residence.id);
+    },
+  },
+};
+
+// Resolvers using the database
+ export const resolvers = {
+  Query: {
+    residences: async (parent: any, args: any, context: any) => {
+      return await context.prisma.residence.findMany();
+    },
+    residence: async (parent: any, args: any, context: any) => {
+      return await context.prisma.residence.findUnique({
+        where: { id: args.id },
+      });
+    },
+    connections: async (parent: any, args: any, context: any) => {
+      return await context.prisma.connection.findMany();
+    },
+    connection: async (parent: any, args: any, context: any) => {
+      return await context.prisma.connection.findUnique({
+        where: { id: args.id },
+      });
+    },
+    notifications: async (parent: any, args: any, context: any) => {
+      return await context.prisma.notification.findMany();
+    },
+    notification: async (parent: any, args: any, context: any) => {
+      return await context.prisma.notification.findUnique({
+        where: { id: args.id },
+      });
+    },
+  },
+  Mutation: {
+    updateConnectionStatus: async (parent, args, context) => {
+      return await context.prisma.connection.update({
+        where: { id: args.id },
+        data: { status: args.status },
+      });
+    },
+    sendNotification: async (parent, args, context) => {
+      return await context.prisma.notification.create({
+        data: {
+          message: args.message,
+          source: args.source,
+          timestamp: args.timestamp,
+        },
+      });
+    },
+  },
+  Subscription: {
+    connectionStatusUpdated: {
+      //subscribe: () => pubsub.asyncIterator(['CONNECTION_STATUS_UPDATED']),
+    },
+    newNotification: {
+      //subscribe: () => pubsub.asyncIterator(['NEW_NOTIFICATION']),
+    },
+  },
+  Residence: {
+    connections: async (parent, args, context) => {
+      return await context.prisma.connection.findMany({
+        where: { residenceId: parent.id },
+      });
+    },
+  },
+  Connection: {
+    residence: async (parent, args, context) => {
+      return await context.prisma.residence.findUnique({
+        where: { id: parent.residenceId },
+      });
     },
   },
 };

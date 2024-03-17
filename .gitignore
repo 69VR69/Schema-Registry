@@ -22,3 +22,11 @@ dist
 # Snyk
 .dccache
 .eslintcache
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Prisma 
+prisma/dev.db
