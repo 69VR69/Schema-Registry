@@ -10,23 +10,141 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Connection {
+// Model definitions
+
+model Dysfunction {
   id          String   @id @default(uuid())
-  technology  String
-  status      String
-  residence   Residence @relation(fields: [residenceId], references: [id])
-  residenceId String
+  connection  Connection @relation(fields: [connectionId], references: [id])
+  connectionId String
+  reason      String
+  startDate   DateTime
+  endDate     DateTime?
+  status      DysfunctionStatus @relation(fields: [statusId], references: [code])
+  statusId    String
 }
 
-model Residence {
-  id          String      @id @default(uuid())
-  address     String
-  connections Connection[]
+model Connection {
+  id            String        @id @default(uuid())
+  dysfunction   Dysfunction[]
+  subscription  Subscription @relation(fields: [subscriptionId], references: [id])
+  subscriptionId String
+  technology    Technology  @relation(fields: [technologyId], references: [id])
+  technologyId  String
+  
 }
 
-model Notification {
-  id        String @id @default(uuid())
-  message   String
-  source    String
-  timestamp String
+model Technology {
+  id        String   @id @default(uuid())
+  name      String
+  debitMin  Int
+  debitMax  Int
+  connection Connection[]
+  technology Eligibility[]
 }
+
+model Subscription {
+  id        String   @id @default(uuid())
+  owner     User    @relation(fields: [ownerId], references: [id])
+  ownerId  String
+  supplier  ISP    @relation(fields: [supplierId], references: [id])
+  supplierId String
+  status    SubscriptionStatus @relation(fields: [statusId], references: [code])
+  statusId  String
+  connection Connection[]
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String
+  location  Location @relation(fields: [locationId], references: [id])
+  locationId String
+  subscription Subscription[]
+  eligibility Eligibility[]
+}
+
+model Location {
+  id         String   @id @default(uuid())
+  address    String
+  postalCode String
+  city       String
+  user       User[]
+  copperClosure CopperClosure[]
+}
+
+model ISP {
+  id   String   @id @default(uuid())
+  name String
+  subscription Subscription[]
+  eligibility Eligibility[]
+}
+
+model Eligibility {
+  id         String   @id @default(uuid())
+  technology Technology @relation(fields: [technologyId], references: [id])
+  technologyId String
+  user       User @relation(fields: [userId], references: [id])
+  userId    String
+  supplier   ISP @relation(fields: [supplierId], references: [id])
+  supplierId String
+  status     EligibilityStatus @relation(fields: [statusId], references: [code])
+  statusId   String
+}
+
+model CopperClosure {
+  id        String   @id @default(uuid())
+  location  Location @relation(fields: [locationId], references: [id])
+  locationId String
+  startDate DateTime
+  endDate   DateTime?
+  status    CopperClosureStatus @relation(fields: [statusId], references: [code])
+  statusId  String
+}
+
+model DysfunctionStatus {
+  code String @id
+  dysfunctions Dysfunction[]
+}
+// TODO : insert the following data
+// OPEN
+// CLOSED
+// IN_PROGRESS
+// PENDING
+// CANCELLED
+// RESOLVED
+// REJECTED
+// UNKNOWN
+
+model SubscriptionStatus {
+  code String @id
+  subscriptions Subscription[]
+}
+// TODO : insert the following data
+// ACTIVE
+// INACTIVE
+// PENDING
+// CANCELLED
+// SUSPENDED
+// UNKNOWN
+
+model EligibilityStatus {
+  code String @id
+  eligibilities Eligibility[]
+}
+// TODO : insert the following data
+// ELIGIBLE
+// INELIGIBLE
+// PENDING
+// UNKNOWN
+
+model CopperClosureStatus {
+  code String @id
+  copperClosures CopperClosure[]
+}
+// TODO : insert the following data
+// CLOSED
+// OPEN
+// IN_PROGRESS
+// PENDING
+// CANCELLED
+// UNKNOWN

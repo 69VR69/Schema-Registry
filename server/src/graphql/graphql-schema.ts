@@ -1,88 +1,147 @@
 export const typeDefs = `#graphql
-  type Query {
+schema {
+  query: Query
+  mutation: Mutation
+}
+  
+type Query { # GET
   dysfunctions: [Dysfunction!]!
-  eligibility: [Eligibility!]!
+  dysfunction(id: ID!): Dysfunction!
+
+  eligibilities: [Eligibility!]!
+  eligibility(id: ID!): Eligibility!
+
   copperClosures: [CopperClosure!]!
-  buildings: [Building!]!
+  copperClosure(id: ID!): CopperClosure!
+
   users: [User!]!
+  user(id: ID!): User!
+
+  subscriptions: [Subscription!]!
+  subscription(id: ID!): Subscription!
+}
+
+type Mutation { # POST / PUT / PATCH / DELETE
+  createDysfunction(connectionId: ID!, reason: String!, startDate: String!, endDate: String, status: DysfunctionStatus!): Dysfunction!
+  updateDysfunction(id: ID!, connectionId: ID, reason: String, startDate: String, endDate: String, status: DysfunctionStatus): Dysfunction!
+  deleteDysfunction(id: ID!): Dysfunction!
+
+  createEligibility(technologyId: ID!, userId: ID!, supplierId: ID!, status: EligibilityStatus!): Eligibility!
+  updateEligibility(id: ID!, technologyId: ID, userId: ID, supplierId: ID, status: EligibilityStatus): Eligibility!
+  deleteEligibility(id: ID!): Eligibility!
+
+  createCopperClosure(locationId: ID!, startDate: String!, endDate: String, status: CopperClosureStatus!): CopperClosure!
+  updateCopperClosure(id: ID!, locationId: ID, startDate: String, endDate: String, status: CopperClosureStatus): CopperClosure!
+  deleteCopperClosure(id: ID!): CopperClosure!
+
+  createUser(name: String!, email: String!, locationId: ID!): User!
+  updateUser(id: ID!, name: String, email: String, locationId: ID): User!
+  deleteUser(id: ID!): User!
+
+  createSubscription(ownerId: ID!, supplierId: ID!, status: SubscriptionStatus!): Subscription!
+  updateSubscription(id: ID!, ownerId: ID, supplierId: ID, status: SubscriptionStatus): Subscription!
+  deleteSubscription(id: ID!): Subscription!
 }
 
 type Dysfunction {
   id: ID!
-  date: String!
-  areaAffected: String!
-  subscriptionAffected: [Subscription!]!
+  connection: Connection!
   reason: String!
-  location: Location!
+  startDate: String!
+  endDate: String
+  status: DysfunctionStatus!
 }
 
-type Eligibility {
-  id: ID!
-  areaId: ID!
-  areaType: String!
-  technologyAvailability: String!
-  speedClass: String!
-  location: Location!
+enum DysfunctionStatus {
+  OPEN
+  CLOSED
+  IN_PROGRESS
+  PENDING
+  CANCELLED
+  RESOLVED
+  REJECTED
+  UNKNOWN
 }
 
-type CopperClosure {
+type Connection {
   id: ID!
-  date: String!
-  areaAffected: String!
-  reason: String!
-  location: Location!
+  subscription: Subscription!
+  technology: Technology!
 }
 
-type Location {
+type Technology {
   id: ID!
-  address: String!
-  postalCode: String!
-  building: Building
+  name: String!
+  debitMin: Int!
+  debitMax: Int!
 }
 
-type Building {
+type Subscription {
   id: ID!
-  address: String!
-  postalCode: String!
-  broadbandAvailability: Boolean!
-  fiberOpticAvailability: Boolean!
-  users: [User!]!
-  copperClosures: [CopperClosure!]!
+  owner: User!
+  supplier : ISP!
+  status: SubscriptionStatus!
+}
+
+enum SubscriptionStatus {
+  ACTIVE
+  INACTIVE
+  PENDING
+  CANCELLED
+  SUSPENDED
+  UNKNOWN
 }
 
 type User {
   id: ID!
   name: String!
   email: String!
-  building: Building!
-  devices: [Device!]!
+  Location : Location!
+  #subscriptions: [Subscription!]! TODO: check references 1 - n
 }
 
-type Device {
+type Location {
+  id: ID!
+  address: String!
+  postalCode: String!
+  city: String!
+}
+
+# Internet Service Provider (FAI)
+type ISP { 
   id: ID!
   name: String!
-  type: String!
-  user: User!
 }
 
-type Service {
+type Eligibility {
   id: ID!
-  name: String!
-  provider: String!
+  technology: Technology!
+  user : User!
+  supplier : ISP!
+  status: EligibilityStatus!
 }
 
-type Subscription {
+enum EligibilityStatus {
+  ELIGIBLE
+  INELIGIBLE
+  PENDING
+  UNKNOWN
+}
+
+type CopperClosure {
   id: ID!
-  user: User!
-  service: Service!
+  location : Location!
+  startDate: String!
+  endDate: String
+  status: CopperClosureStatus!
 }
 
-type Mutation {
-  # Add mutation operations here if needed
-}
-
-schema {
-  query: Query
-  mutation: Mutation
+enum CopperClosureStatus {
+  CLOSED
+  OPEN
+  IN_PROGRESS
+  PENDING
+  CANCELLED
+  UNKNOWN
 }
 `;

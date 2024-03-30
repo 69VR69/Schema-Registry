@@ -1,15 +1,13 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { PrismaClient } from '@prisma/client';
-import { mocked_resolvers, resolvers } from './graphql/graphql-resolvers.js';
+import { resolvers } from './graphql/graphql-resolvers.js';
 import { typeDefs } from './graphql/graphql-schema.js';
-import { ConnectionDataSource } from './models/connection.js';
-
-const IS_MOCKED = true;
+import { ConnectionDataSource } from './datasource/connection.js';
 
 const server = new ApolloServer({
     typeDefs,
-    resolvers: IS_MOCKED ? mocked_resolvers : resolvers,
+    resolvers: resolvers,
 });
 
 // Create a new PrismaClient instance to connect to the database
