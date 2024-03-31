@@ -1,9 +1,10 @@
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
 import { PrismaClient } from '@prisma/client';
+import { ConnectionDataSource } from './datasource/connection.js';
+import { DysfunctionDataSource } from './datasource/dysfunction.js';
 import { resolvers } from './graphql/graphql-resolvers.js';
 import { typeDefs } from './graphql/graphql-schema.js';
-import { ConnectionDataSource } from './datasource/connection.js';
 
 const server = new ApolloServer({
     typeDefs,
@@ -23,6 +24,7 @@ await startStandaloneServer(server, {
         return {
             dataSources: {
                 connectionsDb : new ConnectionDataSource(prisma),
+                dysfunctionDb : new DysfunctionDataSource(prisma),
             },
         };
     },

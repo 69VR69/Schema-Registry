@@ -16,37 +16,51 @@ This project uses the following dependencies:
 ## Setup
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/69VR69/Schema-Registry
 ```
 
-2. Navigate into the project directory and install the dependencies on Server side:  
+2. Navigate into the project directory and install the dependencies on Server side:
+
 ```bash
 cd ./server
 npm install
-```  
+```
 
-3. Navigate into the project directory and install the dependencies on Client side:    
+3. Navigate into the project directory and install the dependencies on Client side:
+
 ```bash
 cd ./client
 npm install
 ```
 
-4. Running the Server  
-To start the server, run:
-```bash 
+4. Running the Server
+   To start the server, run:
+
+```bash
 cd ./server
 npm run start
 ```
+
 By default, the server will start in mocked mode. To disable this, set the IS_MOCKED constant in index.ts to false.
 
 The server will start at http://localhost:4000.
 
-5. Running the Client  
-To start the client, run:
-```bash 
+5. Running the Client
+   To start the client, run:
+
+```bash
 cd ./client
 npm run dev
 ```
 
 The client will start at http://localhost:5173.
+
+# Prisma
+
+Tu update the database schema use the command
+```bash
+npx prisma migrate dev --name <NameOfMigration>
+npx prisma generate
+```
