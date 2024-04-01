@@ -59,7 +59,7 @@ The client will start at http://localhost:5173.
 
 # Prisma
 
-Tu update the database schema use the command
+To update the database schema use the command
 ```bash
 npx prisma migrate dev --name <NameOfMigration>
 npx prisma generate
