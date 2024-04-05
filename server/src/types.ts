@@ -1,3 +1,4 @@
+
 import { Prisma } from "@prisma/client";
 
 const dysfunctions = Prisma.validator<Prisma.DysfunctionDefaultArgs>()({});
@@ -23,3 +24,11 @@ export type User = Prisma.UserGetPayload<typeof users>;
 const isps = Prisma.validator<Prisma.ISPDefaultArgs>()({});
 
 export type ISP = Prisma.ISPGetPayload<typeof isps>;
+
+const subscriptions = Prisma.validator<Prisma.SubscriptionDefaultArgs>()({});
+
+export type Subscription = Prisma.SubscriptionGetPayload<typeof subscriptions>;
+
+const copperClosures = Prisma.validator<Prisma.CopperClosureDefaultArgs>()({});
+
+export type CopperClosure = Prisma.CopperClosureGetPayload<typeof copperClosures>;
