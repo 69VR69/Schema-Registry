@@ -27,3 +27,24 @@ export type Subscription = Prisma.SubscriptionGetPayload<typeof subscriptions>;
 
 const copperClosures = Prisma.validator<Prisma.CopperClosureDefaultArgs>()({});
 export type CopperClosure = Prisma.CopperClosureGetPayload<typeof copperClosures>;
+
+// Schema Registry
+const schemas = Prisma.validator<Prisma.SchemaDefaultArgs>()({});
+export type Schema = Prisma.SchemaGetPayload<typeof schemas>;
+export type NewSchema = Prisma.SchemaCreateArgs;
+
+const services = Prisma.validator<Prisma.ServiceDefaultArgs>()({});
+export type Service = Prisma.ServiceGetPayload<typeof services>;
+export type NewService = Prisma.ServiceCreateArgs;
+
+const versions = Prisma.validator<Prisma.SchemaVersionDefaultArgs>()({});
+export type Version = Prisma.SchemaVersionGetPayload<typeof versions>;
+export type NewVersion = Prisma.SchemaVersionCreateArgs;
+
+const schemaWithServiceAndVersion = Prisma.validator<Prisma.SchemaDefaultArgs>()({
+    include: {
+        service: true,
+        versions: true
+    }
+});
+export type SchemaWithServiceAndVersion = Prisma.SchemaGetPayload<typeof schemaWithServiceAndVersion>;

@@ -7,7 +7,7 @@ import { typeDefs } from './graphql/graphql-schema.js';
 
 const server = new ApolloServer({
     typeDefs,
-    resolvers: resolvers,
+    resolvers,
 });
 
 // Create a new PrismaClient instance to connect to the database
