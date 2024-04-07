@@ -1,0 +1,1614 @@
+{
+  "dialect": "sqlite",
+  "models": {
+    "Connection": {
+      "id": "Connection",
+      "tableName": "Connection",
+      "fields": [
+        {
+          "id": "Connection.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": true
+        },
+        {
+          "id": "Connection.subscriptionId",
+          "name": "subscriptionId",
+          "columnName": "subscriptionId",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "Connection.technologyId",
+          "name": "technologyId",
+          "columnName": "technologyId",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "name": "Technology",
+          "type": "Technology",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "ConnectionToTechnology",
+          "relationFromFields": [
+            "technologyId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "Subscription",
+          "type": "Subscription",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "ConnectionToSubscription",
+          "relationFromFields": [
+            "subscriptionId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "Dysfunction",
+          "type": "Dysfunction",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "DysfunctionToConnection",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "Connection_pkey",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "CopperClosure": {
+      "id": "CopperClosure",
+      "tableName": "CopperClosure",
+      "fields": [
+        {
+          "id": "CopperClosure.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": true
+        },
+        {
+          "id": "CopperClosure.locationId",
+          "name": "locationId",
+          "columnName": "locationId",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "CopperClosure.startDate",
+          "name": "startDate",
+          "columnName": "startDate",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "CopperClosure.endDate",
+          "name": "endDate",
+          "columnName": "endDate",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "CopperClosure.statusId",
+          "name": "statusId",
+          "columnName": "statusId",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "name": "CopperClosureStatus",
+          "type": "CopperClosureStatus",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "CopperClosureToCopperClosureStatus",
+          "relationFromFields": [
+            "statusId"
+          ],
+          "relationToFields": [
+            "code"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "Location",
+          "type": "Location",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "CopperClosureToLocation",
+          "relationFromFields": [
+            "locationId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "CopperClosure_pkey",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "CopperClosureStatus": {
+      "id": "CopperClosureStatus",
+      "tableName": "CopperClosureStatus",
+      "fields": [
+        {
+          "id": "CopperClosureStatus.code",
+          "name": "code",
+          "columnName": "code",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": true
+        },
+        {
+          "name": "CopperClosure",
+          "type": "CopperClosure",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "CopperClosureToCopperClosureStatus",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "CopperClosureStatus_pkey",
+          "fields": [
+            "code"
+          ]
+        }
+      ]
+    },
+    "Dysfunction": {
+      "id": "Dysfunction",
+      "tableName": "Dysfunction",
+      "fields": [
+        {
+          "id": "Dysfunction.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": true
+        },
+        {
+          "id": "Dysfunction.connectionId",
+          "name": "connectionId",
+          "columnName": "connectionId",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "Dysfunction.reason",
+          "name": "reason",
+          "columnName": "reason",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "Dysfunction.startDate",
+          "name": "startDate",
+          "columnName": "startDate",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "Dysfunction.endDate",
+          "name": "endDate",
+          "columnName": "endDate",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "Dysfunction.statusId",
+          "name": "statusId",
+          "columnName": "statusId",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "name": "DysfunctionStatus",
+          "type": "DysfunctionStatus",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "DysfunctionToDysfunctionStatus",
+          "relationFromFields": [
+            "statusId"
+          ],
+          "relationToFields": [
+            "code"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "Connection",
+          "type": "Connection",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "DysfunctionToConnection",
+          "relationFromFields": [
+            "connectionId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "Dysfunction_pkey",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "DysfunctionStatus": {
+      "id": "DysfunctionStatus",
+      "tableName": "DysfunctionStatus",
+      "fields": [
+        {
+          "id": "DysfunctionStatus.code",
+          "name": "code",
+          "columnName": "code",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": true
+        },
+        {
+          "name": "Dysfunction",
+          "type": "Dysfunction",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "DysfunctionToDysfunctionStatus",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "DysfunctionStatus_pkey",
+          "fields": [
+            "code"
+          ]
+        }
+      ]
+    },
+    "Eligibility": {
+      "id": "Eligibility",
+      "tableName": "Eligibility",
+      "fields": [
+        {
+          "id": "Eligibility.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": true
+        },
+        {
+          "id": "Eligibility.technologyId",
+          "name": "technologyId",
+          "columnName": "technologyId",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "Eligibility.userId",
+          "name": "userId",
+          "columnName": "userId",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "Eligibility.supplierId",
+          "name": "supplierId",
+          "columnName": "supplierId",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "Eligibility.statusId",
+          "name": "statusId",
+          "columnName": "statusId",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "name": "EligibilityStatus",
+          "type": "EligibilityStatus",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "EligibilityToEligibilityStatus",
+          "relationFromFields": [
+            "statusId"
+          ],
+          "relationToFields": [
+            "code"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "ISP",
+          "type": "ISP",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "EligibilityToISP",
+          "relationFromFields": [
+            "supplierId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "User",
+          "type": "User",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "EligibilityToUser",
+          "relationFromFields": [
+            "userId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "Technology",
+          "type": "Technology",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "EligibilityToTechnology",
+          "relationFromFields": [
+            "technologyId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "Eligibility_pkey",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "EligibilityStatus": {
+      "id": "EligibilityStatus",
+      "tableName": "EligibilityStatus",
+      "fields": [
+        {
+          "id": "EligibilityStatus.code",
+          "name": "code",
+          "columnName": "code",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": true
+        },
+        {
+          "name": "Eligibility",
+          "type": "Eligibility",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "EligibilityToEligibilityStatus",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "EligibilityStatus_pkey",
+          "fields": [
+            "code"
+          ]
+        }
+      ]
+    },
+    "ISP": {
+      "id": "ISP",
+      "tableName": "ISP",
+      "fields": [
+        {
+          "id": "ISP.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": true
+        },
+        {
+          "id": "ISP.name",
+          "name": "name",
+          "columnName": "name",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "name": "Eligibility",
+          "type": "Eligibility",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "EligibilityToISP",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "Subscription",
+          "type": "Subscription",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "SubscriptionToISP",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "ISP_pkey",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "Location": {
+      "id": "Location",
+      "tableName": "Location",
+      "fields": [
+        {
+          "id": "Location.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": true
+        },
+        {
+          "id": "Location.address",
+          "name": "address",
+          "columnName": "address",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "Location.postalCode",
+          "name": "postalCode",
+          "columnName": "postalCode",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "Location.city",
+          "name": "city",
+          "columnName": "city",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "name": "CopperClosure",
+          "type": "CopperClosure",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "CopperClosureToLocation",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "User",
+          "type": "User",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "UserToLocation",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "Location_pkey",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "Schema": {
+      "id": "Schema",
+      "tableName": "Schema",
+      "fields": [
+        {
+          "id": "Schema.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": true
+        },
+        {
+          "id": "Schema.name",
+          "name": "name",
+          "columnName": "name",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "Schema.serviceId",
+          "name": "serviceId",
+          "columnName": "serviceId",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "Schema.versionId",
+          "name": "versionId",
+          "columnName": "versionId",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "Schema.isActive",
+          "name": "isActive",
+          "columnName": "isActive",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "Schema.createdAt",
+          "name": "createdAt",
+          "columnName": "createdAt",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false
+        },
+        {
+          "id": "Schema.updatedAt",
+          "name": "updatedAt",
+          "columnName": "updatedAt",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "name": "SchemaVersion",
+          "type": "SchemaVersion",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "SchemaToSchemaVersion",
+          "relationFromFields": [
+            "versionId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "Service",
+          "type": "Service",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "SchemaToService",
+          "relationFromFields": [
+            "serviceId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "Schema_pkey",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "SchemaVersion": {
+      "id": "SchemaVersion",
+      "tableName": "SchemaVersion",
+      "fields": [
+        {
+          "id": "SchemaVersion.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": true
+        },
+        {
+          "id": "SchemaVersion.version",
+          "name": "version",
+          "columnName": "version",
+          "type": "integer",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "SchemaVersion.content",
+          "name": "content",
+          "columnName": "content",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "SchemaVersion.createdAt",
+          "name": "createdAt",
+          "columnName": "createdAt",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false
+        },
+        {
+          "id": "SchemaVersion.updatedAt",
+          "name": "updatedAt",
+          "columnName": "updatedAt",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "name": "Schema",
+          "type": "Schema",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "SchemaToSchemaVersion",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "SchemaVersion_pkey",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "Service": {
+      "id": "Service",
+      "tableName": "Service",
+      "fields": [
+        {
+          "id": "Service.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": true
+        },
+        {
+          "id": "Service.name",
+          "name": "name",
+          "columnName": "name",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "Service.isActive",
+          "name": "isActive",
+          "columnName": "isActive",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "Service.createdAt",
+          "name": "createdAt",
+          "columnName": "createdAt",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false
+        },
+        {
+          "id": "Service.updatedAt",
+          "name": "updatedAt",
+          "columnName": "updatedAt",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "name": "Schema",
+          "type": "Schema",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "SchemaToService",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "Service_pkey",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "Subscription": {
+      "id": "Subscription",
+      "tableName": "Subscription",
+      "fields": [
+        {
+          "id": "Subscription.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": true
+        },
+        {
+          "id": "Subscription.ownerId",
+          "name": "ownerId",
+          "columnName": "ownerId",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "Subscription.supplierId",
+          "name": "supplierId",
+          "columnName": "supplierId",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "Subscription.statusId",
+          "name": "statusId",
+          "columnName": "statusId",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "name": "SubscriptionStatus",
+          "type": "SubscriptionStatus",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "SubscriptionToSubscriptionStatus",
+          "relationFromFields": [
+            "statusId"
+          ],
+          "relationToFields": [
+            "code"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "ISP",
+          "type": "ISP",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "SubscriptionToISP",
+          "relationFromFields": [
+            "supplierId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "User",
+          "type": "User",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "SubscriptionToUser",
+          "relationFromFields": [
+            "ownerId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "Connection",
+          "type": "Connection",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "ConnectionToSubscription",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "Subscription_pkey",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "SubscriptionStatus": {
+      "id": "SubscriptionStatus",
+      "tableName": "SubscriptionStatus",
+      "fields": [
+        {
+          "id": "SubscriptionStatus.code",
+          "name": "code",
+          "columnName": "code",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": true
+        },
+        {
+          "name": "Subscription",
+          "type": "Subscription",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "SubscriptionToSubscriptionStatus",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "SubscriptionStatus_pkey",
+          "fields": [
+            "code"
+          ]
+        }
+      ]
+    },
+    "Technology": {
+      "id": "Technology",
+      "tableName": "Technology",
+      "fields": [
+        {
+          "id": "Technology.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": true
+        },
+        {
+          "id": "Technology.name",
+          "name": "name",
+          "columnName": "name",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "Technology.debitMin",
+          "name": "debitMin",
+          "columnName": "debitMin",
+          "type": "integer",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "Technology.debitMax",
+          "name": "debitMax",
+          "columnName": "debitMax",
+          "type": "integer",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "name": "Connection",
+          "type": "Connection",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "ConnectionToTechnology",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "Eligibility",
+          "type": "Eligibility",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "EligibilityToTechnology",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "Technology_pkey",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "User": {
+      "id": "User",
+      "tableName": "User",
+      "fields": [
+        {
+          "id": "User.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": true
+        },
+        {
+          "id": "User.name",
+          "name": "name",
+          "columnName": "name",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "User.email",
+          "name": "email",
+          "columnName": "email",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "User.locationId",
+          "name": "locationId",
+          "columnName": "locationId",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "name": "Location",
+          "type": "Location",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "UserToLocation",
+          "relationFromFields": [
+            "locationId"
+          ],
+          "relationToFields": [
+            "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "Eligibility",
+          "type": "Eligibility",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "EligibilityToUser",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "Subscription",
+          "type": "Subscription",
+          "isRequired": false,
+          "kind": "object",
+          "relationName": "SubscriptionToUser",
+          "relationFromFields": [],
+          "relationToFields": [],
+          "isList": true,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "User_pkey",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    },
+    "_prisma_migrations": {
+      "id": "_prisma_migrations",
+      "tableName": "_prisma_migrations",
+      "fields": [
+        {
+          "id": "_prisma_migrations.id",
+          "name": "id",
+          "columnName": "id",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": true
+        },
+        {
+          "id": "_prisma_migrations.checksum",
+          "name": "checksum",
+          "columnName": "checksum",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "_prisma_migrations.finished_at",
+          "name": "finished_at",
+          "columnName": "finished_at",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "_prisma_migrations.migration_name",
+          "name": "migration_name",
+          "columnName": "migration_name",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "_prisma_migrations.logs",
+          "name": "logs",
+          "columnName": "logs",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "_prisma_migrations.rolled_back_at",
+          "name": "rolled_back_at",
+          "columnName": "rolled_back_at",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false,
+          "isId": false
+        },
+        {
+          "id": "_prisma_migrations.started_at",
+          "name": "started_at",
+          "columnName": "started_at",
+          "type": "text",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false
+        },
+        {
+          "id": "_prisma_migrations.applied_steps_count",
+          "name": "applied_steps_count",
+          "columnName": "applied_steps_count",
+          "type": "integer",
+          "isRequired": true,
+          "kind": "scalar",
+          "isList": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": true,
+          "isId": false
+        }
+      ],
+      "uniqueConstraints": [
+        {
+          "name": "_prisma_migrations_pkey",
+          "fields": [
+            "id"
+          ]
+        }
+      ]
+    }
+  },
+  "enums": {}
+}

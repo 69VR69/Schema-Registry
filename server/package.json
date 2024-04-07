@@ -7,7 +7,7 @@
   "scripts": {
     "compile": "tsc",
     "start": "npm run compile && node ./dist/index.js",
-    "update-schema": "npx snaplet sync && npx prisma migrate dev --name update-schema"
+    "update-schema": "npx prisma migrate dev --name update-schema && npx @snaplet/seed sync"
   },
   "dependencies": {
     "@apollo/server": "^4.10.1",
@@ -18,11 +18,14 @@
     "ts-node": "^10.9.2"
   },
   "devDependencies": {
+    "@snaplet/copycat": "^5.0.0",
+    "@snaplet/seed": "^0.91.1",
     "@types/node": "^20.11.28",
     "prisma": "^5.11.0",
     "typescript": "^5.4.2"
   },
   "prisma": {
-    "schema": "./prisma/schema.prisma"
+    "schema": "./prisma/schema.prisma",
+    "seed" : "npx ts-node ./seed.mts"
   }
 }

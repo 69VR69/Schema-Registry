@@ -105,49 +105,21 @@ model DysfunctionStatus {
   code String @id
   dysfunctions Dysfunction[]
 }
-// TODO : insert the following data
-// OPEN
-// CLOSED
-// IN_PROGRESS
-// PENDING
-// CANCELLED
-// RESOLVED
-// REJECTED
-// UNKNOWN
 
 model SubscriptionStatus {
   code String @id
   subscriptions Subscription[]
 }
-// TODO : insert the following data
-// ACTIVE
-// INACTIVE
-// PENDING
-// CANCELLED
-// SUSPENDED
-// UNKNOWN
 
 model EligibilityStatus {
   code String @id
   eligibilities Eligibility[]
 }
-// TODO : insert the following data
-// ELIGIBLE
-// INELIGIBLE
-// PENDING
-// UNKNOWN
 
 model CopperClosureStatus {
   code String @id
   copperClosures CopperClosure[]
 }
-// TODO : insert the following data
-// CLOSED
-// OPEN
-// IN_PROGRESS
-// PENDING
-// CANCELLED
-// UNKNOWN
 
 // Schema registry
 
