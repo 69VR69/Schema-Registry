@@ -3,46 +3,46 @@ import { Connection, CopperClosure, Dysfunction, Eligibility, ISP, Location, Sub
 export const resolvers = {
     Query: {
         // Dysfunctions
-        async dysfunctions(context: any) {
+        async dysfunctions(parent: any, args: any, context: any) {
             return context.dataSources.dysfunctionDb.getDysfunctions();
         },
-        async dysfunction({ id }: Dysfunction, context: any) {
+        async dysfunction(parent: any, { id }: Dysfunction, context: any) {
             return context.dataSources.dysfunctionDb.getDysfunctionById(id);
         },
-        
+
         // Eligibilities
-        async eligibilities(context: any) {
+        async eligibilities(parent: any, args: any, context: any) {
             return context.dataSources.eligibilityDb.getEligibilities();
         },
-        async eligibility({ id }: Eligibility, context: any) {
+        async eligibility(parent: any, { id }: Eligibility, context: any) {
             return context.dataSources.eligibilityDb.getEligibilityById(id);
         },
 
         // CopperClosures
-        async copperClosures(context: any) {
+        async copperClosures(parent: any, args: any, context: any) {
             return context.dataSources.copperClosureDb.getCopperClosures();
         },
-        async copperClosure({ id }: CopperClosure, context: any) {
+        async copperClosure(parent: any, { id }: CopperClosure, context: any) {
             return context.dataSources.copperClosureDb.getCopperClosureById(id);
         },
 
         // Users
-        async users(context: any) {
+        async users(parent: any, args: any, context: any) {
             return context.dataSources.userDb.getUsers();
         },
-        async user({ id }: User, context: any) {
+        async user(parent: any, { id }: User, context: any) {
             return context.dataSources.userDb.getUserById(id);
         },
 
         // Subscriptions
-        async subscriptions(context: any) {
+        async subscriptions(parent: any, args: any, context: any) {
             return context.dataSources.subscriptionDb.getSubscriptions();
         },
-        async subscription({ id }: Subscription, context: any) {
+        async subscription(parent: any, { id }: Subscription, context: any) {
             return context.dataSources.subscriptionDb.getSubscriptionById(id);
         },
     },
-    
+
     Mutation: {
         // Dysfunctions
         async createDysfunction({ connectionId, reason, startDate, endDate, statusId }: Dysfunction, context: any) {
@@ -51,7 +51,7 @@ export const resolvers = {
         async updateDysfunction({ id, connectionId, reason, startDate, endDate, statusId }: Dysfunction, context: any) {
             return context.dataSources.dysfunctionDb.updateDysfunction({ id, connectionId, reason, startDate, endDate, statusId });
         },
-        async deleteDysfunction({ id } : Dysfunction, context: any) {
+        async deleteDysfunction({ id }: Dysfunction, context: any) {
             return context.dataSources.dysfunctionDb.deleteDysfunction(id);
         },
 
