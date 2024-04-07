@@ -1,5 +1,5 @@
 import { Prisma } from "@prisma/client";
-import { NewService, NewVersion, Schema, Service, Version } from "../types";
+import { NewService, NewVersion, Schema, Service, Version } from "../types.js";
 
 export class RegistryRepository {
     dbConnection: any;

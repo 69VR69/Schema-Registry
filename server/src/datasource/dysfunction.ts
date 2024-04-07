@@ -1,4 +1,4 @@
-import { Dysfunction } from "../types";
+import { Dysfunction } from "../types.js";
 import DataLoader from "dataloader";
 
 export class DysfunctionDataSource {

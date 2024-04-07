@@ -1,4 +1,4 @@
-import { Connection, CopperClosure, Dysfunction, Eligibility, ISP, Location, Subscription, Technology, User } from "../types";
+import { Connection, CopperClosure, Dysfunction, Eligibility, ISP, Location, Subscription, Technology, User } from "../types.js";
 
 export const resolvers = {
     Query: {

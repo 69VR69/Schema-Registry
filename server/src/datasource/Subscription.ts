@@ -1,4 +1,4 @@
-import { Subscription } from "../types";
+import { Subscription } from "../types.js";
 import DataLoader from "dataloader";
 
 export class SubscriptionDataSource {

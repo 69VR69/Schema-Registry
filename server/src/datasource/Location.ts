@@ -1,4 +1,4 @@
-import { Location } from "../types";
+import { Location } from "../types.js";
 import DataLoader from "dataloader";
 
 export class LocationDataSource {

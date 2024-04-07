@@ -6,17 +6,23 @@
   "type": "module",
   "scripts": {
     "compile": "tsc",
-    "start": "npm run compile && node ./dist/index.js"
+    "start": "npm run compile && node ./dist/index.js",
+    "update-schema": "npx snaplet sync && npx prisma migrate dev --name update-schema"
   },
   "dependencies": {
     "@apollo/server": "^4.10.1",
     "@prisma/client": "^5.11.0",
     "dataloader": "^2.2.2",
-    "graphql": "^16.8.1"
+    "graphql": "^16.8.1",
+    "kafkajs": "^2.2.4",
+    "ts-node": "^10.9.2"
   },
   "devDependencies": {
     "@types/node": "^20.11.28",
     "prisma": "^5.11.0",
     "typescript": "^5.4.2"
+  },
+  "prisma": {
+    "schema": "./prisma/schema.prisma"
   }
 }

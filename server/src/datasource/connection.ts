@@ -1,4 +1,4 @@
-import { Connection } from "../types";
+import { Connection } from "../types.js";
 import DataLoader from "dataloader";
 
 export class ConnectionDataSource {

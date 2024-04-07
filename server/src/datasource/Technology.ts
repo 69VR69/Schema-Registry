@@ -1,4 +1,4 @@
-import { Technology } from "../types";
+import { Technology } from "../types.js";
 import DataLoader from "dataloader";
 
 export class TechnologyDataSource {

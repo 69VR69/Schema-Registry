@@ -1,4 +1,4 @@
-import { ISP } from "../types";
+import { ISP } from "../types.js";
 import DataLoader from "dataloader";
 
 export class ISPDataSource {

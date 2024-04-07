@@ -1,4 +1,4 @@
-import { CopperClosure } from "../types";
+import { CopperClosure } from "../types.js";
 import DataLoader from "dataloader";
 
 export class CopperClosureDataSource {

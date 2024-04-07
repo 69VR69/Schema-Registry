@@ -1,4 +1,4 @@
-import { User } from "../types";
+import { User } from "../types.js";
 import DataLoader from "dataloader";
 
 export class UserDataSource {

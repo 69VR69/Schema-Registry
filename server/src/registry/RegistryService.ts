@@ -1,5 +1,5 @@
-import { RegistryRepository } from "./RegistryRepository";
-import { Schema, Service, Version, SchemaWithServiceAndVersion } from "../types";
+import { RegistryRepository } from "./RegistryRepository.js";
+import { Schema, Service, Version, SchemaWithServiceAndVersion } from "../types.js";
 
 export class RegistryService {
     repository: RegistryRepository;

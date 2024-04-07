@@ -1,4 +1,4 @@
-import { Eligibility } from "../types";
+import { Eligibility } from "../types.js";
 import DataLoader from "dataloader";
 
 export class EligibilityDataSource {
