@@ -19,13 +19,13 @@
   },
   "devDependencies": {
     "@snaplet/copycat": "^5.0.0",
-    "@snaplet/seed": "^0.91.1",
+    "@snaplet/seed": "^0.92.2",
     "@types/node": "^20.11.28",
     "prisma": "^5.11.0",
     "typescript": "^5.4.2"
   },
   "prisma": {
     "schema": "./prisma/schema.prisma",
-    "seed": "npx tsx prisma/seed.ts"
+    "seed": "npx tsx prisma/seed.mts"
   }
 }
