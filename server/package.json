@@ -7,7 +7,7 @@
   "scripts": {
     "compile": "tsc",
     "start": "npm run compile && node ./dist/index.js",
-    "update-schema": "npx prisma migrate dev --name update-schema && npx @snaplet/seed sync"
+    "update-schema": "npx prisma migrate dev --name update-schema && npx @snaplet/seed sync --config ./prisma/seed.config.ts"
   },
   "dependencies": {
     "@apollo/server": "^4.10.1",
@@ -26,6 +26,6 @@
   },
   "prisma": {
     "schema": "./prisma/schema.prisma",
-    "seed" : "npx ts-node ./seed.mts"
+    "seed": "npx tsx prisma/seed.ts"
   }
 }

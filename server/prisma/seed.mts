@@ -7,17 +7,16 @@
 import { createSeedClient } from "@snaplet/seed";
 
 const seed = await createSeedClient();
+console.log("Seeding started ")
 
 // Truncate all tables in the database
 await seed.$resetDatabase();
-
-// Seed the database with 10 Location
-await seed.Dysfunction((x) => x(10));
-await seed.CopperClosure((x) => x(10));
-await seed.Eligibility((x) => x(10));
+console.log("Database truncated")
 
 // Clasical prisma seeding for hardcoding data
 import { PrismaClient } from '@prisma/client'
+
+console.log('Static Seeding started')
 
 const prisma = new PrismaClient()
 
@@ -28,8 +27,6 @@ async function main() {
     const copperClosuresStatus = getCopperClosuresStatus();
 
     await Promise.all([dysfunctionStatus, subscriptionStatus, eligibilityStatus, copperClosuresStatus]);
-
-    console.log('Seeding of status completed');
 }
 
 async function getDysfunctionStatus()
@@ -110,7 +107,19 @@ main()
   })
   .finally(async () => {
     await prisma.$disconnect()
+    console.log('Static Seeding completed')
   });
 
+// Dynamic seeding
+console.log("Dynamyc Seeding started")
+
+await seed.Dysfunction((x) => x(10));
+console.log("Dysfunctions : " + seed.$store.Dysfunction);
+await seed.CopperClosure((x) => x(10));
+console.log("CopperClosures : " + seed.$store.CopperClosure);
+await seed.Eligibility((x) => x(10));
+console.log("Eligibilities : " + seed.$store.Eligibility);
+
+console.log("Dynamyc Seeding completed")
   
 process.exit();
