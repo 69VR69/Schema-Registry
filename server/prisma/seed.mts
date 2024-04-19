@@ -5,31 +5,18 @@
  * Learn more about the Seed Client by following our guide: https://docs.snaplet.dev/seed/getting-started
  */
 import { createSeedClient } from "@snaplet/seed";
-import { PrismaClient } from '@prisma/client'
 
-const prisma = new PrismaClient()
 const seed = await createSeedClient();
 
-    console.log("Seeding started ")
+console.log("Seeding started ")
 
-    // Truncate all tables in the database
-    seed.$resetDatabase();
-    console.log("Database truncated")
+// Truncate all tables in the database
+seed.$resetDatabase();
+console.log("Database truncated")
 
-async function main() {
-    
-
-    console.log('Static Seeding started')
-    const dysfunctionStatus = getDysfunctionStatus();
-    const subscriptionStatus = getSubscriptionStatus();
-    const eligibilityStatus = getEligibilityStatus();
-    const copperClosuresStatus = getCopperClosuresStatus();
-
-    Promise.all([dysfunctionStatus, subscriptionStatus, eligibilityStatus, copperClosuresStatus]);
-}
-
-async function getDysfunctionStatus() {
-    const dysfunctionStatus = [
+// Seed DysfunctionStatus
+const { DysfunctionStatus } = await seed.DysfunctionStatus(
+    [
         { code: "OPEN" },
         { code: "CLOSED" },
         { code: "IN_PROGRESS" },
@@ -39,16 +26,11 @@ async function getDysfunctionStatus() {
         { code: "REJECTED" },
         { code: "UNKNOWN" }
     ]
+);
 
-    for (const ds of dysfunctionStatus) {
-        await prisma.dysfunctionStatus.create({
-            data: ds
-        })
-    }
-}
-
-async function getSubscriptionStatus() {
-    const subscriptionStatus = [
+// Seed SubscriptionStatus
+const { SubscriptionStatus } = await seed.SubscriptionStatus(
+    [
         { code: "ACTIVE" },
         { code: "INACTIVE" },
         { code: "PENDING" },
@@ -56,31 +38,21 @@ async function getSubscriptionStatus() {
         { code: "SUSPENDED" },
         { code: "UNKNOWN" }
     ]
+);
 
-    for (const ss of subscriptionStatus) {
-        await prisma.subscriptionStatus.create({
-            data: ss
-        })
-    }
-}
-
-async function getEligibilityStatus() {
-    const eligibilityStatus = [
+// Seed EligibilityStatus
+const { EligibilityStatus } = await seed.EligibilityStatus(
+    [
         { code: "ELIGIBLE" },
         { code: "INELIGIBLE" },
         { code: "PENDING" },
         { code: "UNKNOWN" }
     ]
+);
 
-    for (const es of eligibilityStatus) {
-        await prisma.eligibilityStatus.create({
-            data: es
-        })
-    }
-}
-
-async function getCopperClosuresStatus() {
-    const copperClosuresStatus = [
+// Seed CopperClosureStatus
+const { CopperClosureStatus } = await seed.CopperClosureStatus(
+    [
         { code: "CLOSED" },
         { code: "OPEN" },
         { code: "IN_PROGRESS" },
@@ -88,34 +60,57 @@ async function getCopperClosuresStatus() {
         { code: "CANCELLED" },
         { code: "UNKNOWN" }
     ]
+);
 
-    for (const ccs of copperClosuresStatus) {
-        await prisma.copperClosureStatus.create({
-            data: ccs
-        })
-    }
-}
+// Seed ISP
+const { ISP } = await seed.ISP((x) => x(2));
 
-main()
-    .catch(e => {
-        throw e
+// Seed Location
+const { Location } = await seed.Location((x) => x(5));
+
+// Seed User
+const { User } = await seed.User((x) => x(5, {
+  // each user has between 1 and 2 subscriptions
+  Subscription: (x) => x({ min: 1, max: 2 }),
+  // each user has between 1 and 2 eligibilities
+  Eligibility: (x) => x({ min: 1, max: 2 }),
+}));
+
+// Seed Technology
+const { Technology } = await seed.Technology((x) => x(2));
+
+// Seed Connection
+const { Connection } = await seed.Connection((x) => x(5, {
+  // each connection has between 1 and 2 dysfunctions
+  Dysfunction: (x) => x({ min: 1, max: 2 }),
+}));
+
+// Seed Dysfunction
+const {Dysfunction} = await seed.Dysfunction((x) => 
+    x(10, 
+    ({index}) => ({
+            connectionId: Connection[index].id,
+            statusId: DysfunctionStatus[Math.floor(Math.random() * DysfunctionStatus.length)].code
     })
-    .finally(async () => {
-        await prisma.$disconnect()
-        console.log('Static Seeding completed')
-    });
+));
 
-    // Dynamic seeding
-    console.log("Dynamyc Seeding started")
+// Seed Eligibility
+const { Eligibility } = await seed.Eligibility((x) => x(10, 
+    ({index}) => ({
+        userId: User[index].id,
+        statusId: EligibilityStatus[Math.floor(Math.random() * EligibilityStatus.length)].code
+    })
+));
 
-    seed.Dysfunction((x) => x(10));
-    console.log("Dysfunctions : " + seed.$store.Dysfunction);
-    seed.CopperClosure((x) => x(10));
-    console.log("CopperClosures : " + seed.$store.CopperClosure);
-    seed.Eligibility((x) => x(10));
-    console.log("Eligibilities : " + seed.$store.Eligibility);
+// Seed CopperClosure
+const { CopperClosure } = await seed.CopperClosure((x) => x(10,
+    ({index}) => ({
+        connectionId: Connection[index].id,
+        statusId: CopperClosureStatus[Math.floor(Math.random() * CopperClosureStatus.length)].code
+    })
+));
 
-    console.log("Dynamyc Seeding completed")
+console.log("Seeding completed")
 
 
 process.exit();
