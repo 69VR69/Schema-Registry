@@ -5,28 +5,41 @@
  * Learn more about the Seed Client by following our guide: https://docs.snaplet.dev/seed/getting-started
  */
 import { createSeedClient } from "@snaplet/seed";
-
-const seed = await createSeedClient();
-console.log("Seeding started ")
-
-// Truncate all tables in the database
-await seed.$resetDatabase();
-console.log("Database truncated")
-
-// Clasical prisma seeding for hardcoding data
 import { PrismaClient } from '@prisma/client'
 
-console.log('Static Seeding started')
 
 const prisma = new PrismaClient()
 
 async function main() {
-    const dysfunctionStatus = getDysfunctionStatus();
-    const subscriptionStatus = getSubscriptionStatus();
-    const eligibilityStatus = getEligibilityStatus();
-    const copperClosuresStatus = getCopperClosuresStatus();
+    await createSeedClient()
+    .then((seed) => {
+        console.log("Seeding started ")
 
-    await Promise.all([dysfunctionStatus, subscriptionStatus, eligibilityStatus, copperClosuresStatus]);
+        // Truncate all tables in the database
+        seed.$resetDatabase();
+        console.log("Database truncated")
+
+        console.log('Static Seeding started')
+        const dysfunctionStatus = getDysfunctionStatus();
+        const subscriptionStatus = getSubscriptionStatus();
+        const eligibilityStatus = getEligibilityStatus();
+        const copperClosuresStatus = getCopperClosuresStatus();
+
+        Promise.all([dysfunctionStatus, subscriptionStatus, eligibilityStatus, copperClosuresStatus]);
+
+        // Dynamic seeding
+        console.log("Dynamyc Seeding started")
+
+        seed.Dysfunction((x) => x(10));
+        console.log("Dysfunctions : " + seed.$store.Dysfunction);
+        seed.CopperClosure((x) => x(10));
+        console.log("CopperClosures : " + seed.$store.CopperClosure);
+        seed.Eligibility((x) => x(10));
+        console.log("Eligibilities : " + seed.$store.Eligibility);
+
+        console.log("Dynamyc Seeding completed")
+    });
+  
 }
 
 async function getDysfunctionStatus()
@@ -110,16 +123,4 @@ main()
     console.log('Static Seeding completed')
   });
 
-// Dynamic seeding
-console.log("Dynamyc Seeding started")
-
-await seed.Dysfunction((x) => x(10));
-console.log("Dysfunctions : " + seed.$store.Dysfunction);
-await seed.CopperClosure((x) => x(10));
-console.log("CopperClosures : " + seed.$store.CopperClosure);
-await seed.Eligibility((x) => x(10));
-console.log("Eligibilities : " + seed.$store.Eligibility);
-
-console.log("Dynamyc Seeding completed")
-  
 process.exit();

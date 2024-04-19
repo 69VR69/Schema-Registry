@@ -1,9 +1,5 @@
 [
   {
-    "shape": "DATE",
-    "examples": []
-  },
-  {
     "shape": "CITY",
     "examples": []
   },

@@ -10,22 +10,6 @@
         "confidence": 0.9967634677886963,
         "context": "GENERAL",
         "confidenceContext": 0
-      },
-      {
-        "input": " connection subscription_id",
-        "column": "subscriptionId",
-        "shape": "UUID",
-        "confidence": 0.9980270266532898,
-        "context": "GENERAL",
-        "confidenceContext": 0
-      },
-      {
-        "input": " connection technology_id",
-        "column": "technologyId",
-        "shape": "UUID",
-        "confidence": 0.9971146583557129,
-        "context": "GENERAL",
-        "confidenceContext": 0
       }
     ]
   },
@@ -34,42 +18,10 @@
     "tableName": "CopperClosure",
     "predictions": [
       {
-        "input": " copper_closure end_date",
-        "column": "endDate",
-        "shape": "DATE",
-        "confidence": 0.9008073210716248,
-        "context": "GENERAL",
-        "confidenceContext": 0
-      },
-      {
         "input": " copper_closure id",
         "column": "id",
         "shape": "UUID",
         "confidence": 0.9961225390434265,
-        "context": "GENERAL",
-        "confidenceContext": 0
-      },
-      {
-        "input": " copper_closure location_id",
-        "column": "locationId",
-        "shape": "UUID",
-        "confidence": 0.9721469879150391,
-        "context": "GENERAL",
-        "confidenceContext": 0
-      },
-      {
-        "input": " copper_closure start_date",
-        "column": "startDate",
-        "shape": "DATE",
-        "confidence": 0.9930344820022583,
-        "context": "GENERAL",
-        "confidenceContext": 0
-      },
-      {
-        "input": " copper_closure status_id",
-        "column": "statusId",
-        "shape": "UUID",
-        "confidence": 0.9869736433029175,
         "context": "GENERAL",
         "confidenceContext": 0
       }
@@ -94,22 +46,6 @@
     "tableName": "Dysfunction",
     "predictions": [
       {
-        "input": " dysfunction connection_id",
-        "column": "connectionId",
-        "shape": "UUID",
-        "confidence": 0.9943205118179321,
-        "context": "GENERAL",
-        "confidenceContext": 0
-      },
-      {
-        "input": " dysfunction end_date",
-        "column": "endDate",
-        "shape": "DATE",
-        "confidence": 0.9506326913833618,
-        "context": "GENERAL",
-        "confidenceContext": 0
-      },
-      {
         "input": " dysfunction id",
         "column": "id",
         "shape": "UUID",
@@ -122,22 +58,6 @@
         "column": "reason",
         "shape": "FINANCE_TRANSACTION_DESCRIPTION",
         "confidence": 0.9849585294723511,
-        "context": "GENERAL",
-        "confidenceContext": 0
-      },
-      {
-        "input": " dysfunction start_date",
-        "column": "startDate",
-        "shape": "DATE",
-        "confidence": 0.9882732033729553,
-        "context": "GENERAL",
-        "confidenceContext": 0
-      },
-      {
-        "input": " dysfunction status_id",
-        "column": "statusId",
-        "shape": "UUID",
-        "confidence": 0.9933542013168335,
         "context": "GENERAL",
         "confidenceContext": 0
       }
@@ -166,38 +86,6 @@
         "column": "id",
         "shape": "UUID",
         "confidence": 0.9982314705848694,
-        "context": "GENERAL",
-        "confidenceContext": 0
-      },
-      {
-        "input": " eligibility status_id",
-        "column": "statusId",
-        "shape": "UUID",
-        "confidence": 0.9926108717918396,
-        "context": "GENERAL",
-        "confidenceContext": 0
-      },
-      {
-        "input": " eligibility supplier_id",
-        "column": "supplierId",
-        "shape": "UUID",
-        "confidence": 0.997061550617218,
-        "context": "GENERAL",
-        "confidenceContext": 0
-      },
-      {
-        "input": " eligibility technology_id",
-        "column": "technologyId",
-        "shape": "UUID",
-        "confidence": 0.9971330165863037,
-        "context": "GENERAL",
-        "confidenceContext": 0
-      },
-      {
-        "input": " eligibility user_id",
-        "column": "userId",
-        "shape": "UUID",
-        "confidence": 0.9978768825531006,
         "context": "GENERAL",
         "confidenceContext": 0
       }
@@ -288,30 +176,6 @@
         "confidence": 0.9979386925697327,
         "context": "GENERAL",
         "confidenceContext": 0
-      },
-      {
-        "input": " subscription owner_id",
-        "column": "ownerId",
-        "shape": "UUID",
-        "confidence": 0.9951884746551514,
-        "context": "GENERAL",
-        "confidenceContext": 0
-      },
-      {
-        "input": " subscription status_id",
-        "column": "statusId",
-        "shape": "UUID",
-        "confidence": 0.9944023489952087,
-        "context": "GENERAL",
-        "confidenceContext": 0
-      },
-      {
-        "input": " subscription supplier_id",
-        "column": "supplierId",
-        "shape": "UUID",
-        "confidence": 0.9980908036231995,
-        "context": "GENERAL",
-        "confidenceContext": 0
       }
     ]
   },
@@ -368,14 +232,6 @@
         "column": "id",
         "shape": "UUID",
         "confidence": 0.9983880519866943,
-        "context": "GENERAL",
-        "confidenceContext": 0
-      },
-      {
-        "input": " user location_id",
-        "column": "locationId",
-        "shape": "UUID",
-        "confidence": 0.9974079728126526,
         "context": "GENERAL",
         "confidenceContext": 0
       },
