@@ -7,43 +7,28 @@
 import { createSeedClient } from "@snaplet/seed";
 import { PrismaClient } from '@prisma/client'
 
-
 const prisma = new PrismaClient()
+const seed = await createSeedClient();
+
+    console.log("Seeding started ")
+
+    // Truncate all tables in the database
+    seed.$resetDatabase();
+    console.log("Database truncated")
 
 async function main() {
-    await createSeedClient()
-    .then((seed) => {
-        console.log("Seeding started ")
+    
 
-        // Truncate all tables in the database
-        seed.$resetDatabase();
-        console.log("Database truncated")
+    console.log('Static Seeding started')
+    const dysfunctionStatus = getDysfunctionStatus();
+    const subscriptionStatus = getSubscriptionStatus();
+    const eligibilityStatus = getEligibilityStatus();
+    const copperClosuresStatus = getCopperClosuresStatus();
 
-        console.log('Static Seeding started')
-        const dysfunctionStatus = getDysfunctionStatus();
-        const subscriptionStatus = getSubscriptionStatus();
-        const eligibilityStatus = getEligibilityStatus();
-        const copperClosuresStatus = getCopperClosuresStatus();
-
-        Promise.all([dysfunctionStatus, subscriptionStatus, eligibilityStatus, copperClosuresStatus]);
-
-        // Dynamic seeding
-        console.log("Dynamyc Seeding started")
-
-        seed.Dysfunction((x) => x(10));
-        console.log("Dysfunctions : " + seed.$store.Dysfunction);
-        seed.CopperClosure((x) => x(10));
-        console.log("CopperClosures : " + seed.$store.CopperClosure);
-        seed.Eligibility((x) => x(10));
-        console.log("Eligibilities : " + seed.$store.Eligibility);
-
-        console.log("Dynamyc Seeding completed")
-    });
-  
+    Promise.all([dysfunctionStatus, subscriptionStatus, eligibilityStatus, copperClosuresStatus]);
 }
 
-async function getDysfunctionStatus()
-{
+async function getDysfunctionStatus() {
     const dysfunctionStatus = [
         { code: "OPEN" },
         { code: "CLOSED" },
@@ -54,50 +39,47 @@ async function getDysfunctionStatus()
         { code: "REJECTED" },
         { code: "UNKNOWN" }
     ]
-    
+
     for (const ds of dysfunctionStatus) {
         await prisma.dysfunctionStatus.create({
-        data: ds
+            data: ds
         })
     }
 }
 
-async function getSubscriptionStatus()
-{
+async function getSubscriptionStatus() {
     const subscriptionStatus = [
         { code: "ACTIVE" },
         { code: "INACTIVE" },
         { code: "PENDING" },
         { code: "CANCELLED" },
         { code: "SUSPENDED" },
-        { code: "UNKNOWN"}
+        { code: "UNKNOWN" }
     ]
-    
+
     for (const ss of subscriptionStatus) {
         await prisma.subscriptionStatus.create({
-        data: ss
+            data: ss
         })
     }
 }
 
-async function getEligibilityStatus()
-{
+async function getEligibilityStatus() {
     const eligibilityStatus = [
         { code: "ELIGIBLE" },
         { code: "INELIGIBLE" },
         { code: "PENDING" },
         { code: "UNKNOWN" }
     ]
-    
+
     for (const es of eligibilityStatus) {
         await prisma.eligibilityStatus.create({
-        data: es
+            data: es
         })
     }
 }
 
-async function getCopperClosuresStatus()
-{
+async function getCopperClosuresStatus() {
     const copperClosuresStatus = [
         { code: "CLOSED" },
         { code: "OPEN" },
@@ -106,21 +88,34 @@ async function getCopperClosuresStatus()
         { code: "CANCELLED" },
         { code: "UNKNOWN" }
     ]
-    
+
     for (const ccs of copperClosuresStatus) {
         await prisma.copperClosureStatus.create({
-        data: ccs
+            data: ccs
         })
     }
 }
 
 main()
-  .catch(e => {
-    throw e
-  })
-  .finally(async () => {
-    await prisma.$disconnect()
-    console.log('Static Seeding completed')
-  });
+    .catch(e => {
+        throw e
+    })
+    .finally(async () => {
+        await prisma.$disconnect()
+        console.log('Static Seeding completed')
+    });
+
+    // Dynamic seeding
+    console.log("Dynamyc Seeding started")
+
+    seed.Dysfunction((x) => x(10));
+    console.log("Dysfunctions : " + seed.$store.Dysfunction);
+    seed.CopperClosure((x) => x(10));
+    console.log("CopperClosures : " + seed.$store.CopperClosure);
+    seed.Eligibility((x) => x(10));
+    console.log("Eligibilities : " + seed.$store.Eligibility);
+
+    console.log("Dynamyc Seeding completed")
+
 
 process.exit();

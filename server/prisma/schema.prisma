@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -10,146 +7,140 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Model definitions
-
 model Dysfunction {
-  id          String   @id @default(uuid())
-  connection  Connection @relation(fields: [connectionId], references: [id])
+  id           String            @id @default(uuid())
   connectionId String
-  reason      String
-  startDate   DateTime
-  endDate     DateTime?
-  status      DysfunctionStatus @relation(fields: [statusId], references: [code])
-  statusId    String
+  reason       String
+  startDate    DateTime
+  endDate      DateTime?
+  statusId     String
+  status       DysfunctionStatus @relation(fields: [statusId], references: [code])
+  connection   Connection        @relation(fields: [connectionId], references: [id])
 }
 
 model Connection {
-  id            String        @id @default(uuid())
-  dysfunction   Dysfunction[]
-  subscription  Subscription @relation(fields: [subscriptionId], references: [id])
+  id             String        @id @default(uuid())
   subscriptionId String
-  technology    Technology  @relation(fields: [technologyId], references: [id])
-  technologyId  String
-  
+  technologyId   String
+  technology     Technology    @relation(fields: [technologyId], references: [id])
+  subscription   Subscription  @relation(fields: [subscriptionId], references: [id])
+  dysfunction    Dysfunction[]
 }
 
 model Technology {
-  id        String   @id @default(uuid())
-  name      String
-  debitMin  Int
-  debitMax  Int
+  id         String        @id @default(uuid())
+  name       String
+  debitMin   Int
+  debitMax   Int
   connection Connection[]
   technology Eligibility[]
 }
 
 model Subscription {
-  id        String   @id @default(uuid())
-  owner     User    @relation(fields: [ownerId], references: [id])
-  ownerId  String
-  supplier  ISP    @relation(fields: [supplierId], references: [id])
+  id         String             @id @default(uuid())
+  ownerId    String
   supplierId String
-  status    SubscriptionStatus @relation(fields: [statusId], references: [code])
-  statusId  String
+  statusId   String
   connection Connection[]
+  status     SubscriptionStatus @relation(fields: [statusId], references: [code])
+  supplier   ISP                @relation(fields: [supplierId], references: [id])
+  owner      User               @relation(fields: [ownerId], references: [id])
 }
 
 model User {
-  id        String   @id @default(uuid())
-  name      String
-  email     String
-  location  Location @relation(fields: [locationId], references: [id])
-  locationId String
+  id           String         @id @default(uuid())
+  name         String
+  email        String
+  locationId   String
+  eligibility  Eligibility[]
   subscription Subscription[]
-  eligibility Eligibility[]
+  location     Location       @relation(fields: [locationId], references: [id])
 }
 
 model Location {
-  id         String   @id @default(uuid())
-  address    String
-  postalCode String
-  city       String
-  user       User[]
+  id            String          @id @default(uuid())
+  address       String
+  postalCode    String
+  city          String
   copperClosure CopperClosure[]
+  user          User[]
 }
 
 model ISP {
-  id   String   @id @default(uuid())
-  name String
+  id           String         @id @default(uuid())
+  name         String
+  eligibility  Eligibility[]
   subscription Subscription[]
-  eligibility Eligibility[]
 }
 
 model Eligibility {
-  id         String   @id @default(uuid())
-  technology Technology @relation(fields: [technologyId], references: [id])
+  id           String            @id @default(uuid())
   technologyId String
-  user       User @relation(fields: [userId], references: [id])
-  userId    String
-  supplier   ISP @relation(fields: [supplierId], references: [id])
-  supplierId String
-  status     EligibilityStatus @relation(fields: [statusId], references: [code])
-  statusId   String
+  userId       String
+  supplierId   String
+  statusId     String
+  status       EligibilityStatus @relation(fields: [statusId], references: [code])
+  supplier     ISP               @relation(fields: [supplierId], references: [id])
+  user         User              @relation(fields: [userId], references: [id])
+  technology   Technology        @relation(fields: [technologyId], references: [id])
 }
 
 model CopperClosure {
-  id        String   @id @default(uuid())
-  location  Location @relation(fields: [locationId], references: [id])
+  id         String              @id @default(uuid())
   locationId String
-  startDate DateTime
-  endDate   DateTime?
-  status    CopperClosureStatus @relation(fields: [statusId], references: [code])
-  statusId  String
+  startDate  DateTime
+  endDate    DateTime?
+  statusId   String
+  status     CopperClosureStatus @relation(fields: [statusId], references: [code])
+  location   Location            @relation(fields: [locationId], references: [id])
 }
 
 model DysfunctionStatus {
-  code String @id
+  code         String        @id
   dysfunctions Dysfunction[]
 }
 
 model SubscriptionStatus {
-  code String @id
+  code          String         @id
   subscriptions Subscription[]
 }
 
 model EligibilityStatus {
-  code String @id
+  code          String        @id
   eligibilities Eligibility[]
 }
 
 model CopperClosureStatus {
-  code String @id
+  code           String          @id
   copperClosures CopperClosure[]
 }
-
-// Schema registry
 
 model Service {
   id        String   @id @default(uuid())
   name      String
-  schemas   Schema[]
   isActive  Boolean
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
+  schemas   Schema[]
 }
 
 model SchemaVersion {
   id        String   @id @default(uuid())
   version   Int
   content   String
-  schemas   Schema[]
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  schemas   Schema[]
 }
 
 model Schema {
-  id        String   @id @default(uuid())
+  id        String        @id @default(uuid())
   name      String
-  service   Service @relation(fields: [serviceId], references: [id])
   serviceId String
-  versions  SchemaVersion @relation(fields: [versionId], references: [id])
   versionId String
   isActive  Boolean
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+  versions  SchemaVersion @relation(fields: [versionId], references: [id])
+  service   Service       @relation(fields: [serviceId], references: [id])
 }
