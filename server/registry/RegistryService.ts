@@ -26,7 +26,7 @@ export class RegistryService {
         if (versionId) {
             const schema = await this.repository.getSchemaById(id);
             const version = await this.repository.getVersionById(schema.versionId);
-            await this.repository.updateVersion({ id: version.id, version: version.version+1});
+            await this.repository.updateVersion({ id: version.id, version: version.version + 1 });
         }
         else
             await this.repository.addNewVersion({ version: 1, content: "" });
