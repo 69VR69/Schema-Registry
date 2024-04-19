@@ -26,12 +26,15 @@ const datasources = {
 };
 
 // Test if the prisma database is empty
-const isEmpty = async () => {
-    const locations = await prisma.dysfunction.findMany();
-    return locations.length === 0;
-};
-
-console.log('Checking if database is empty...' + (await isEmpty() ? 'Yes' : 'No'));
+console.log("Dysfunction count: " + (await datasources.dysfunctionDb.getDysfunctions()).length);
+console.log("CopperClosure count: " + (await datasources.copperClosureDb.getCopperClosures()).length);
+console.log("Eligibility count: " + (await datasources.eligibilityDb.getEligibilities()).length);
+//console.log("ISP count: " + (await datasources.ispDb.getISPs()).length); TODO: fix this (this.dbConnection.isp is undefined)
+console.log("Location count: " + (await datasources.locationDb.getLocations()).length);
+console.log("Subscription count: " + (await datasources.subscriptionDb.getSubscriptions()).length);
+console.log("Technology count: " + (await datasources.technologyDb.getTechnologies()).length);
+console.log("User count: " + (await datasources.userDb.getUsers()).length);
+console.log("Connection count: " + (await datasources.connectionDb.getConnections()).length);
 
 // Passing an ApolloServer instance to the `startStandaloneServer` function:
 //  1. creates an Express app
