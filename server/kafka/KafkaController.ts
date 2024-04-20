@@ -19,7 +19,10 @@ export class KafkaController
         });
 
         // Initialize Producer
-        this.producer = kafka.producer({ createPartitioner: Partitioners.DefaultPartitioner });
+        this.producer = kafka.producer({ 
+            createPartitioner: Partitioners.DefaultPartitioner,
+            allowAutoTopicCreation: true
+        });
 
         // Initialize Logger
         this.logger = kafka.logger();
