@@ -5,6 +5,7 @@ import * as ds from './datasource/datasources.dependencies.js';
 import { resolvers } from './graphql/graphql-resolvers.js';
 import { typeDefs } from './graphql/graphql-schema.js';
 import express from 'express';
+import { RegistryService } from './registry/RegistryService.js';
 import { KafkaController } from './kafka/KafkaController.js';
 
 const server = new ApolloServer({
@@ -27,18 +28,6 @@ const datasources = {
     userDb: new ds.UserDataSource(prisma),
 };
 
-// Test if the prisma database is empty
-console.log("Dysfunction count: " + (await datasources.dysfunctionDb.getDysfunctions()).length);
-console.log("CopperClosure count: " + (await datasources.copperClosureDb.getCopperClosures()).length);
-console.log("Eligibility count: " + (await datasources.eligibilityDb.getEligibilities()).length);
-//console.log("ISP count: " + (await datasources.ispDb.getISPs()).length); TODO: fix this (this.dbConnection.isp is undefined)
-console.log("ISP count: " + (await datasources.ispDb.getISPs()).length);
-console.log("Location count: " + (await datasources.locationDb.getLocations()).length);
-console.log("Subscription count: " + (await datasources.subscriptionDb.getSubscriptions()).length);
-console.log("Technology count: " + (await datasources.technologyDb.getTechnologies()).length);
-console.log("User count: " + (await datasources.userDb.getUsers()).length);
-console.log("Connection count: " + (await datasources.connectionDb.getConnections()).length);
-
 // Passing an ApolloServer instance to the `startStandaloneServer` function:
 //  1. creates an Express app
 //  2. installs your ApolloServer instance as middleware
@@ -57,6 +46,9 @@ await startStandaloneServer(server, {
 // Express server
 const apiApp = express();
 import cors from 'cors';
+import { validateContent } from './registry/SchemaValidation.js';
+import { SchemaWithVersion } from './types.js';
+const registryService = new RegistryService(prisma);
 const kafka = new KafkaController();
 await kafka.init();
 
@@ -66,24 +58,75 @@ apiApp.use(cors());
 /* Schema */
 // GET list of schemas
 apiApp.get('/schema', (req, res) => {
-    res.send('Hello World!');
+    registryService.repository.getAllSchemas()
+    .then((schemas) => {
+        res.status(200)
+            .send(schemas);
+    })
+    .catch((error) => {
+        res.status(500);
+        console.error(error);
+    })
 });
 
 // GET a specific schema
 apiApp.get('/schema/:schemaId', (req, res) => {
-    res.send('Hello World!');
+    registryService.repository.getSchemaById(parseInt(req.params.schemaId))
+    .then((schema) => {
+        res.status(200)
+            .send(schema);
+    })
+    .catch((error) => {
+        res.status(500);
+        console.error(error);
+    })
 });
 
 // POST a new schema
 apiApp.post('/schema', (req, res) => {
-    console.log(req.body);
-    res.send('Hello World!');
+    registryService.addSchema(req.body)
+    .then((schema) => {
+        res.status(201)
+            .send(schema);
+    })
+    .catch((error) => {
+        res.status(500);
+        console.error(error);
+    })
 });
 
 /* Data */
 // POST a new data
 apiApp.post('/data', (req, res) => {
-    res.send('Hello World!');
+    // Parse the schemaId from the request body
+    const schemaId = req.body.schemaId;
+    // Get the schema from the database
+    registryService.repository.getSchemaById(schemaId)
+    .then((schema : SchemaWithVersion) => {
+        // Get the content of the latest version
+        const schemaContent = schema.versions.content;
+        // Validate the data
+        if (validateContent(schemaContent, req.body.content)) {
+            const topic = schema.name;
+            // Send the data to Kafka
+            kafka.send(req.body.content,topic)
+            .then((result) => {
+                if (result) {
+                    res.status(201)
+                        .send('Data sent to Kafka');
+                }
+                else {
+                    res.status(400)
+                        .send('Invalid data');
+                }
+            });
+        }
+        else {
+            res.status(400)
+                .send('Invalid data');
+        }
+    })
+
 });
 
 apiApp.listen(2400, () => {

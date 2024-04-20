@@ -7,6 +7,10 @@ export class RegistryRepository {
         this.dbConnection = dbConnection;
     }
 
+    async getAllSchemas(): Promise<Schema[]> {
+        return this.dbConnection.schema.findMany();
+    }
+
     async getSchemaById(id: number) : Promise<Schema>{
         return this.dbConnection.schema.findUnique({
             where: {

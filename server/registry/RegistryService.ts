@@ -1,5 +1,5 @@
 import { RegistryRepository } from "./RegistryRepository.js";
-import { Schema, Service, Version, SchemaWithServiceAndVersion } from "../types.js";
+import { Schema, Service, SchemaWithServiceAndVersion, SchemaWithVersion } from "../types.js";
 
 export class RegistryService {
     repository: RegistryRepository;
@@ -7,8 +7,19 @@ export class RegistryService {
         this.repository = new RegistryRepository(dbConnection);
     }
 
+    async getSchemas() {
+        return this.repository.getAllSchemas();
+    }
+
     async getSchema(id: number) {
         return this.repository.getSchemaById(id);
+    }
+
+    async getSchemaWithVersion(id: number) : Promise<SchemaWithVersion>
+    {
+        const schema = await this.repository.getSchemaById(id);
+        const version = await this.repository.getVersionById(schema.versionId);
+        return { ...schema, versions: version };
     }
 
     async addService({ name }: Service) {

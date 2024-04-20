@@ -48,3 +48,10 @@ const schemaWithServiceAndVersion = Prisma.validator<Prisma.SchemaDefaultArgs>()
     }
 });
 export type SchemaWithServiceAndVersion = Prisma.SchemaGetPayload<typeof schemaWithServiceAndVersion>;
+
+const schemaWithVersion = Prisma.validator<Prisma.SchemaDefaultArgs>()({
+    include: {
+        versions: true
+    }
+});
+export type SchemaWithVersion = Prisma.SchemaGetPayload<typeof schemaWithVersion>;

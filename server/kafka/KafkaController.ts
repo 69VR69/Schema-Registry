@@ -48,11 +48,11 @@ export class KafkaController
 
     /**
      * Send data to Kafka
-     * @param data JSON data to send
+     * @param data string data to send
      * @param topic Kafka topic to send data to
      * @returns boolean true if data was sent successfully, false otherwise
      */
-    async send(data: JSON, topic : string) : Promise<boolean>
+    async send(data: string, topic : string) : Promise<boolean>
     {
         if (!this.checkConnection())
         {
