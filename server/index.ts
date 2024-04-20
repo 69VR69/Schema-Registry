@@ -32,6 +32,7 @@ console.log("Dysfunction count: " + (await datasources.dysfunctionDb.getDysfunct
 console.log("CopperClosure count: " + (await datasources.copperClosureDb.getCopperClosures()).length);
 console.log("Eligibility count: " + (await datasources.eligibilityDb.getEligibilities()).length);
 //console.log("ISP count: " + (await datasources.ispDb.getISPs()).length); TODO: fix this (this.dbConnection.isp is undefined)
+console.log("ISP count: " + (await datasources.ispDb.getISPs()).length);
 console.log("Location count: " + (await datasources.locationDb.getLocations()).length);
 console.log("Subscription count: " + (await datasources.subscriptionDb.getSubscriptions()).length);
 console.log("Technology count: " + (await datasources.technologyDb.getTechnologies()).length);

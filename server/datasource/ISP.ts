@@ -8,7 +8,7 @@ export class ISPDataSource {
     constructor(dbConnection: any) {
         this.dbConnection = dbConnection;
         this.ispLoader = new DataLoader(async (ispIds: number[]) => {
-            const isps = await this.dbConnection.isp.findMany({
+            const isps = await this.dbConnection.ISP.findMany({
                 where: {
                     id: {
                         in: ispIds,
@@ -26,11 +26,11 @@ export class ISPDataSource {
     }
 
     async getISPs(): Promise<ISP[]> {
-        return this.dbConnection.isp.findMany();
+        return this.dbConnection.ISP.findMany();
     }
 
     async createISP({ name }: ISP): Promise<ISP> {
-        return this.dbConnection.isp.create({
+        return this.dbConnection.ISP.create({
             data: {
                 name
             },
@@ -38,7 +38,7 @@ export class ISPDataSource {
     }
 
     async updateISP({ id, name }: ISP): Promise<ISP> {
-        return this.dbConnection.isp.update({
+        return this.dbConnection.ISP.update({
             where: {
                 id,
             },
@@ -49,7 +49,7 @@ export class ISPDataSource {
     }
 
     async deleteISP({ id }: ISP): Promise<ISP> {
-        return this.dbConnection.isp.delete({
+        return this.dbConnection.ISP.delete({
             where: {
                 id: id,
             },
