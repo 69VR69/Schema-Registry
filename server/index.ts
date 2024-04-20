@@ -81,7 +81,7 @@ apiApp.post('/data', (req, res) => {
 });
 
 apiApp.listen(2400, () => {
-    console.log('API server listening on port 3000!');
+    console.log('API server listening on port 2400!');
 });
 
 // On server shutdown
