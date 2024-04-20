@@ -56,7 +56,7 @@ await startStandaloneServer(server, {
 // Express server
 const apiApp = express();
 const kafka = new KafkaController();
-await kafka.initKafka();
+await kafka.init();
 
 /* Schema */
 // GET list of schemas
@@ -82,4 +82,10 @@ apiApp.post('/data', (req, res) => {
 
 apiApp.listen(2400, () => {
     console.log('API server listening on port 3000!');
+});
+
+// On server shutdown
+process.on('exit', async () => {
+    await prisma.$disconnect();
+    await kafka.close();
 });

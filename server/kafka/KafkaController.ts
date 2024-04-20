@@ -10,7 +10,7 @@ export class KafkaController
      * Initialize Kafka connection, producer and logger
      * @returns Kafka object
      */
-    async initKafka() : Promise<Kafka>
+    async init() : Promise<Kafka>
     {
         // Initialize Kafka
         const kafka = new Kafka({
@@ -32,7 +32,7 @@ export class KafkaController
      * Check if Kafka connection is initialized
      * @returns boolean true if Kafka connection is initialized, false otherwise
      */
-    private checkKakfaConnection() : boolean
+    private checkConnection() : boolean
     {
         if (this.producer == null)
         {
@@ -49,9 +49,9 @@ export class KafkaController
      * @param topic Kafka topic to send data to
      * @returns boolean true if data was sent successfully, false otherwise
      */
-    async sendToKafka(data: JSON, topic : string) : Promise<boolean>
+    async send(data: JSON, topic : string) : Promise<boolean>
     {
-        if (!this.checkKakfaConnection())
+        if (!this.checkConnection())
         {
             return false;
         }
@@ -76,9 +76,9 @@ export class KafkaController
     /**
      * Close Kafka connection
      */
-    async closeKafkaConnection() : Promise<void>
+    async close() : Promise<void>
     {
-        if (!this.checkKakfaConnection())
+        if (!this.checkConnection())
         {
             this.logger.error("Kafka producer not initialized");
             return;
