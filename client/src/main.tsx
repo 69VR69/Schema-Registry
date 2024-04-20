@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
 import './index.css'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client';
+import HomePage from './Pages/IndexPage.tsx';
 import config from '../client-config.json'
 
 const client = new ApolloClient({
@@ -18,7 +18,7 @@ const root = ReactDOM.createRoot(rootElement);
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <HomePage />
     </ApolloProvider>
   </React.StrictMode>
 )
