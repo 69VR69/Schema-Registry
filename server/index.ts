@@ -56,8 +56,12 @@ await startStandaloneServer(server, {
 
 // Express server
 const apiApp = express();
+import cors from 'cors';
 const kafka = new KafkaController();
 await kafka.init();
+
+// Utilisez le middleware cors pour autoriser les requêtes cross-origin
+apiApp.use(cors());
 
 /* Schema */
 // GET list of schemas
@@ -72,6 +76,7 @@ apiApp.get('/schema/:schemaId', (req, res) => {
 
 // POST a new schema
 apiApp.post('/schema', (req, res) => {
+    console.log(req.body);
     res.send('Hello World!');
 });
 
