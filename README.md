@@ -44,7 +44,7 @@ cd ./server
 npm run start
 ```
 
-The server will start at http://localhost:4000.
+The GraphQL server will start at http://localhost:4200 and the Express (APIs) server will start at http://localhost:2400
 
 5. Running the Client
    To start the client, run:

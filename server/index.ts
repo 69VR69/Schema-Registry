@@ -4,6 +4,7 @@ import { PrismaClient } from '@prisma/client';
 import * as ds from './datasource/datasources.dependencies.js';
 import { resolvers } from './graphql/graphql-resolvers.js';
 import { typeDefs } from './graphql/graphql-schema.js';
+import express from 'express';
 
 const server = new ApolloServer({
     typeDefs,
@@ -41,7 +42,7 @@ console.log("Connection count: " + (await datasources.connectionDb.getConnection
 //  2. installs your ApolloServer instance as middleware
 //  3. prepares your app to handle incoming requests
 await startStandaloneServer(server, {
-    listen: { port: 4000 },
+    listen: { port: 4200 },
     context: async () => {
         return {
             dataSources: datasources,
@@ -50,3 +51,32 @@ await startStandaloneServer(server, {
 })
     .then(({ url }) => { console.log(`🚀  Server ready at: ${url}`); })
     .catch((error) => { console.error(error); });
+
+// Express server
+const apiApp = express();
+
+/* Schema */
+// GET list of schemas
+apiApp.get('/schema', (req, res) => {
+    res.send('Hello World!');
+});
+
+// GET a specific schema
+apiApp.get('/schema/:schemaId', (req, res) => {
+    res.send('Hello World!');
+});
+
+// POST a new schema
+apiApp.post('/schema', (req, res) => {
+    res.send('Hello World!');
+});
+
+/* Data */
+// POST a new data
+apiApp.post('/data', (req, res) => {
+    res.send('Hello World!');
+});
+
+apiApp.listen(2400, () => {
+    console.log('API server listening on port 3000!');
+});
