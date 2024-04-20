@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "compile": "tsc",
-    "start": "npm run compile && node ./dist/index.js",
+    "start": "docker-compose up -d && npm run compile && node ./dist/index.js",
     "update-schema": "npx prisma migrate dev --name update-schema && npx @snaplet/seed sync --config ./prisma/seed.config.ts",
     "visualize-schema": "npx prisma db pull && npx prisma studio"
   },
@@ -15,8 +15,10 @@
     "@prisma/client": "^5.11.0",
     "@types/cors": "^2.8.17",
     "@types/express": "^4.17.21",
+    "child_process": "^1.0.2",
     "cors": "^2.8.5",
     "dataloader": "^2.2.2",
+    "dockerode": "^4.0.2",
     "express": "^4.19.2",
     "graphql": "^16.8.1",
     "kafkajs": "^2.2.4",
@@ -25,6 +27,7 @@
   "devDependencies": {
     "@snaplet/copycat": "^5.0.0",
     "@snaplet/seed": "^0.95.0-alpha-5a2e0c4",
+    "@types/dockerode": "^3.3.28",
     "@types/node": "^20.11.28",
     "prisma": "^5.11.0",
     "typescript": "^5.4.2"

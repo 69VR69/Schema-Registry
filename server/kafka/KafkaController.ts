@@ -1,10 +1,11 @@
-import { Kafka, Logger, Partitioners, Producer } from "kafkajs";
+import { Admin, Kafka, Logger, Partitioners, Producer } from "kafkajs";
 
 export class KafkaController
 {
     private kafka: Kafka;
     private producer: Producer;
     private logger: Logger;
+    private admin: Admin;
 
     /**
      * Initialize Kafka connection, producer and logger
@@ -13,22 +14,29 @@ export class KafkaController
     async init() : Promise<Kafka>
     {
         // Initialize Kafka
-        const kafka = new Kafka({
-            clientId: 'my-app',
+        this.kafka = new Kafka({
+            clientId: 'darkpioupiou',
             brokers: ['localhost:2442']
         });
 
         // Initialize Producer
-        this.producer = kafka.producer({ 
+        this.producer = this.kafka.producer({ 
             createPartitioner: Partitioners.DefaultPartitioner,
             allowAutoTopicCreation: true
         });
 
         // Initialize Logger
-        this.logger = kafka.logger();
+        this.logger = this.kafka.logger();
         this.logger.info("Kafka initialized");
 
-        return kafka;
+        // Initialize Admin Client
+        this.admin = this.kafka.admin();
+
+        // Connect to Kafka
+        await this.producer.connect();
+        this.logger.info("Producer connected");
+
+        return this.kafka;
     }
 
     /**
@@ -37,12 +45,10 @@ export class KafkaController
      */
     private checkConnection() : boolean
     {
-        if (this.producer == null)
-        {
+        if (!this.producer) {
             this.logger.error("Kafka producer not initialized");
             return false;
         }
-
         return true;
     }
 
@@ -59,15 +65,39 @@ export class KafkaController
             return false;
         }
 
+        // Ensure topic exists
+        await this.admin.createTopics({
+            topics: [{
+                topic: topic,
+                numPartitions: 1,
+                replicationFactor: 1,
+                configEntries: [
+                    {
+                        name: 'cleanup.policy',
+                        value: 'delete'
+                    },
+                    {
+                        name: 'min.insync.replicas',
+                        value: '1'
+                    }
+                ]
+            }]
+        }).then(() => {
+            this.logger.info(`Topic ${topic} created successfully`);
+        })
+        .catch(error => {
+            this.logger.error(`Error creating topic ${topic}: ${error}`);
+        });
+        
         // Send data to Kafka
         await this.producer.send({
             topic: topic,
             messages: [
-                { value: JSON.stringify(data) }
+                { value: data }
             ]
         })
         .then(() => {
-            this.logger.info("Follwing data sent to Kafka on topic " + topic + ":\n" + JSON.stringify(data));
+            this.logger.info("Follwing data sent to Kafka on topic " + topic + ":\n" + data);
             return true;
         })
         .catch((error) => {

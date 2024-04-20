@@ -36,7 +36,15 @@ cd ./client
 npm install
 ```
 
-4. Running the Server
+4. On you desktop, start docker by using the following command (for linux) :
+
+   ```bash
+   sudo service docker start
+   ```
+
+   Or start docker desktop for windows.
+
+5. Running the Server
    To start the server, run:
 
 ```bash
@@ -44,9 +52,10 @@ cd ./server
 npm run start
 ```
 
-The GraphQL server will start at http://localhost:4200 and the Express (APIs) server will start at http://localhost:2400
+The GraphQL server will start at http://localhost:4200 and the Express (APIs) server will start at http://localhost:2400.
+This will also launch the docker containes for kafka broker.
 
-5. Running the Client
+6. Running the Client
    To start the client, run:
 
 ```bash
