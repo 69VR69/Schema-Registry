@@ -8,27 +8,27 @@ datasource db {
 }
 
 model Dysfunction {
-  id           String            @id @default(uuid())
-  connectionId String
+  id           Int               @id @default(autoincrement())
+  connectionId Int
   reason       String
   startDate    DateTime
   endDate      DateTime?
   statusId     String
-  status       DysfunctionStatus @relation(fields: [statusId], references: [code])
   connection   Connection        @relation(fields: [connectionId], references: [id])
+  status       DysfunctionStatus @relation(fields: [statusId], references: [code])
 }
 
 model Connection {
-  id             String        @id @default(uuid())
-  subscriptionId String
-  technologyId   String
-  technology     Technology    @relation(fields: [technologyId], references: [id])
+  id             Int           @id @default(autoincrement())
+  subscriptionId Int
+  technologyId   Int
   subscription   Subscription  @relation(fields: [subscriptionId], references: [id])
+  technology     Technology    @relation(fields: [technologyId], references: [id])
   dysfunction    Dysfunction[]
 }
 
 model Technology {
-  id         String        @id @default(uuid())
+  id         Int           @id @default(autoincrement())
   name       String
   debitMin   Int
   debitMax   Int
@@ -37,28 +37,28 @@ model Technology {
 }
 
 model Subscription {
-  id         String             @id @default(uuid())
-  ownerId    String
-  supplierId String
+  id         Int                @id @default(autoincrement())
+  ownerId    Int
+  supplierId Int
   statusId   String
   connection Connection[]
-  status     SubscriptionStatus @relation(fields: [statusId], references: [code])
-  supplier   ISP                @relation(fields: [supplierId], references: [id])
   owner      User               @relation(fields: [ownerId], references: [id])
+  supplier   ISP                @relation(fields: [supplierId], references: [id])
+  status     SubscriptionStatus @relation(fields: [statusId], references: [code])
 }
 
 model User {
-  id           String         @id @default(uuid())
+  id           Int            @id @default(autoincrement())
   name         String
   email        String
-  locationId   String
+  locationId   Int
   eligibility  Eligibility[]
   subscription Subscription[]
   location     Location       @relation(fields: [locationId], references: [id])
 }
 
 model Location {
-  id            String          @id @default(uuid())
+  id            Int             @id @default(autoincrement())
   address       String
   postalCode    String
   city          String
@@ -67,32 +67,32 @@ model Location {
 }
 
 model ISP {
-  id           String         @id @default(uuid())
+  id           Int            @id @default(autoincrement())
   name         String
   eligibility  Eligibility[]
   subscription Subscription[]
 }
 
 model Eligibility {
-  id           String            @id @default(uuid())
-  technologyId String
-  userId       String
-  supplierId   String
+  id           Int               @id @default(autoincrement())
+  technologyId Int
+  userId       Int
+  supplierId   Int
   statusId     String
-  status       EligibilityStatus @relation(fields: [statusId], references: [code])
-  supplier     ISP               @relation(fields: [supplierId], references: [id])
-  user         User              @relation(fields: [userId], references: [id])
   technology   Technology        @relation(fields: [technologyId], references: [id])
+  user         User              @relation(fields: [userId], references: [id])
+  supplier     ISP               @relation(fields: [supplierId], references: [id])
+  status       EligibilityStatus @relation(fields: [statusId], references: [code])
 }
 
 model CopperClosure {
-  id         String              @id @default(uuid())
-  locationId String
+  id         Int                 @id @default(autoincrement())
+  locationId Int
   startDate  DateTime
   endDate    DateTime?
   statusId   String
-  status     CopperClosureStatus @relation(fields: [statusId], references: [code])
   location   Location            @relation(fields: [locationId], references: [id])
+  status     CopperClosureStatus @relation(fields: [statusId], references: [code])
 }
 
 model DysfunctionStatus {
@@ -116,7 +116,7 @@ model CopperClosureStatus {
 }
 
 model Service {
-  id        String   @id @default(uuid())
+  id        Int      @id @default(autoincrement())
   name      String
   isActive  Boolean
   createdAt DateTime @default(now())
@@ -125,7 +125,7 @@ model Service {
 }
 
 model SchemaVersion {
-  id        String   @id @default(uuid())
+  id        Int      @id @default(autoincrement())
   version   Int
   content   String
   createdAt DateTime @default(now())
@@ -134,13 +134,13 @@ model SchemaVersion {
 }
 
 model Schema {
-  id        String        @id @default(uuid())
+  id        Int           @id @default(autoincrement())
   name      String
-  serviceId String
-  versionId String
+  serviceId Int
+  versionId Int
   isActive  Boolean
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
-  versions  SchemaVersion @relation(fields: [versionId], references: [id])
   service   Service       @relation(fields: [serviceId], references: [id])
+  versions  SchemaVersion @relation(fields: [versionId], references: [id])
 }

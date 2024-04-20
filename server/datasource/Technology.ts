@@ -7,7 +7,7 @@ export class TechnologyDataSource {
 
     constructor(dbConnection: any) {
         this.dbConnection = dbConnection;
-        this.technologyLoader = new DataLoader(async (technologyIds: String[]) => {
+        this.technologyLoader = new DataLoader(async (technologyIds: number[]) => {
             const technologies = await this.dbConnection.technology.findMany({
                 where: {
                     id: {
@@ -15,7 +15,7 @@ export class TechnologyDataSource {
                     },
                 },
             });
-            return technologyIds.map((technologyId: String) =>
+            return technologyIds.map((technologyId: number) =>
                 technologies.find((technology: Technology) => technology.id === technologyId)
             );
         });

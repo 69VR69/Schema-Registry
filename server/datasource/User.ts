@@ -7,7 +7,7 @@ export class UserDataSource {
 
     constructor(dbConnection: any) {
         this.dbConnection = dbConnection;
-        this.userLoader = new DataLoader(async (userIds: String[]) => {
+        this.userLoader = new DataLoader(async (userIds: number[]) => {
             const users = await this.dbConnection.user.findMany({
                 where: {
                     id: {
@@ -15,7 +15,7 @@ export class UserDataSource {
                     },
                 },
             });
-            return userIds.map((userId: String) =>
+            return userIds.map((userId: number) =>
                 users.find((user: User) => user.id === userId)
             );
         });

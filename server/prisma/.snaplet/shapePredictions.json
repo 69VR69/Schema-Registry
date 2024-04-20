@@ -1,34 +1,6 @@
 [
   {
     "schemaName": "",
-    "tableName": "Connection",
-    "predictions": [
-      {
-        "input": " connection id",
-        "column": "id",
-        "shape": "UUID",
-        "confidence": 0.9967634677886963,
-        "context": "GENERAL",
-        "confidenceContext": 0
-      }
-    ]
-  },
-  {
-    "schemaName": "",
-    "tableName": "CopperClosure",
-    "predictions": [
-      {
-        "input": " copper_closure id",
-        "column": "id",
-        "shape": "UUID",
-        "confidence": 0.9961225390434265,
-        "context": "GENERAL",
-        "confidenceContext": 0
-      }
-    ]
-  },
-  {
-    "schemaName": "",
     "tableName": "CopperClosureStatus",
     "predictions": [
       {
@@ -45,14 +17,6 @@
     "schemaName": "",
     "tableName": "Dysfunction",
     "predictions": [
-      {
-        "input": " dysfunction id",
-        "column": "id",
-        "shape": "UUID",
-        "confidence": 0.9977589845657349,
-        "context": "GENERAL",
-        "confidenceContext": 0
-      },
       {
         "input": " dysfunction reason",
         "column": "reason",
@@ -79,20 +43,6 @@
   },
   {
     "schemaName": "",
-    "tableName": "Eligibility",
-    "predictions": [
-      {
-        "input": " eligibility id",
-        "column": "id",
-        "shape": "UUID",
-        "confidence": 0.9982314705848694,
-        "context": "GENERAL",
-        "confidenceContext": 0
-      }
-    ]
-  },
-  {
-    "schemaName": "",
     "tableName": "EligibilityStatus",
     "predictions": [
       {
@@ -109,14 +59,6 @@
     "schemaName": "",
     "tableName": "ISP",
     "predictions": [
-      {
-        "input": " isp id",
-        "column": "id",
-        "shape": "UUID",
-        "confidence": 0.9974521994590759,
-        "context": "GENERAL",
-        "confidenceContext": 0
-      },
       {
         "input": " isp name",
         "column": "name",
@@ -148,32 +90,10 @@
         "confidenceContext": 0
       },
       {
-        "input": " location id",
-        "column": "id",
-        "shape": "UUID",
-        "confidence": 0.9946427345275879,
-        "context": "GENERAL",
-        "confidenceContext": 0
-      },
-      {
         "input": " location postal_code",
         "column": "postalCode",
         "shape": "TAX_CODE",
         "confidence": 0.6649959683418274,
-        "context": "GENERAL",
-        "confidenceContext": 0
-      }
-    ]
-  },
-  {
-    "schemaName": "",
-    "tableName": "Subscription",
-    "predictions": [
-      {
-        "input": " subscription id",
-        "column": "id",
-        "shape": "UUID",
-        "confidence": 0.9979386925697327,
         "context": "GENERAL",
         "confidenceContext": 0
       }
@@ -198,14 +118,6 @@
     "tableName": "Technology",
     "predictions": [
       {
-        "input": " technology id",
-        "column": "id",
-        "shape": "UUID",
-        "confidence": 0.9981460571289062,
-        "context": "GENERAL",
-        "confidenceContext": 0
-      },
-      {
         "input": " technology name",
         "column": "name",
         "shape": "COMPANY_NAME",
@@ -224,14 +136,6 @@
         "column": "email",
         "shape": "EMAIL",
         "confidence": 0.989477813243866,
-        "context": "GENERAL",
-        "confidenceContext": 0
-      },
-      {
-        "input": " user id",
-        "column": "id",
-        "shape": "UUID",
-        "confidence": 0.9983880519866943,
         "context": "GENERAL",
         "confidenceContext": 0
       },

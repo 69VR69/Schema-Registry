@@ -7,7 +7,7 @@ export class SubscriptionDataSource {
 
     constructor(dbConnection: any) {
         this.dbConnection = dbConnection;
-        this.subscriptionLoader = new DataLoader(async (subscriptionIds: String[]) => {
+        this.subscriptionLoader = new DataLoader(async (subscriptionIds: number[]) => {
             const subscriptions = await this.dbConnection.subscription.findMany({
                 where: {
                     id: {
@@ -15,7 +15,7 @@ export class SubscriptionDataSource {
                     },
                 },
             });
-            return subscriptionIds.map((subscriptionId: String) =>
+            return subscriptionIds.map((subscriptionId: number) =>
                 subscriptions.find((subscription: Subscription) => subscription.id === subscriptionId)
             );
         });

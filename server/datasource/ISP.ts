@@ -7,7 +7,7 @@ export class ISPDataSource {
 
     constructor(dbConnection: any) {
         this.dbConnection = dbConnection;
-        this.ispLoader = new DataLoader(async (ispIds: String[]) => {
+        this.ispLoader = new DataLoader(async (ispIds: number[]) => {
             const isps = await this.dbConnection.isp.findMany({
                 where: {
                     id: {
@@ -15,7 +15,7 @@ export class ISPDataSource {
                     },
                 },
             });
-            return ispIds.map((ispId: String) =>
+            return ispIds.map((ispId: number) =>
                 isps.find((isp: ISP) => isp.id === ispId)
             );
         });

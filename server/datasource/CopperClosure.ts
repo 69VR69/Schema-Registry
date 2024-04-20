@@ -7,7 +7,7 @@ export class CopperClosureDataSource {
 
     constructor(dbConnection: any) {
         this.dbConnection = dbConnection;
-        this.copperClosureLoader = new DataLoader(async (copperClosureIds: String[]) => {
+        this.copperClosureLoader = new DataLoader(async (copperClosureIds: number[]) => {
             const copperClosures = await this.dbConnection.copperClosure.findMany({
                 where: {
                     id: {
@@ -15,7 +15,7 @@ export class CopperClosureDataSource {
                     },
                 },
             });
-            return copperClosureIds.map((copperClosureId: String) =>
+            return copperClosureIds.map((copperClosureId: number) =>
                 copperClosures.find((copperClosure: CopperClosure) => copperClosure.id === copperClosureId)
             );
         });

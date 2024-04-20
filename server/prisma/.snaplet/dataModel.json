@@ -9,12 +9,15 @@
           "id": "Connection.id",
           "name": "id",
           "columnName": "id",
-          "type": "text",
+          "type": "integer",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
           "isGenerated": false,
-          "sequence": false,
+          "sequence": {
+            "identifier": "Connection_id_seq",
+            "increment": 1
+          },
           "hasDefaultValue": false,
           "isId": true
         },
@@ -22,7 +25,7 @@
           "id": "Connection.subscriptionId",
           "name": "subscriptionId",
           "columnName": "subscriptionId",
-          "type": "text",
+          "type": "integer",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
@@ -35,7 +38,7 @@
           "id": "Connection.technologyId",
           "name": "technologyId",
           "columnName": "technologyId",
-          "type": "text",
+          "type": "integer",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
@@ -45,13 +48,13 @@
           "isId": false
         },
         {
-          "name": "Technology",
-          "type": "Technology",
+          "name": "Subscription",
+          "type": "Subscription",
           "isRequired": true,
           "kind": "object",
-          "relationName": "ConnectionToTechnology",
+          "relationName": "ConnectionToSubscription",
           "relationFromFields": [
-            "technologyId"
+            "subscriptionId"
           ],
           "relationToFields": [
             "id"
@@ -63,13 +66,13 @@
           "hasDefaultValue": false
         },
         {
-          "name": "Subscription",
-          "type": "Subscription",
+          "name": "Technology",
+          "type": "Technology",
           "isRequired": true,
           "kind": "object",
-          "relationName": "ConnectionToSubscription",
+          "relationName": "ConnectionToTechnology",
           "relationFromFields": [
-            "subscriptionId"
+            "technologyId"
           ],
           "relationToFields": [
             "id"
@@ -112,12 +115,15 @@
           "id": "CopperClosure.id",
           "name": "id",
           "columnName": "id",
-          "type": "text",
+          "type": "integer",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
           "isGenerated": false,
-          "sequence": false,
+          "sequence": {
+            "identifier": "CopperClosure_id_seq",
+            "increment": 1
+          },
           "hasDefaultValue": false,
           "isId": true
         },
@@ -125,7 +131,7 @@
           "id": "CopperClosure.locationId",
           "name": "locationId",
           "columnName": "locationId",
-          "type": "text",
+          "type": "integer",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
@@ -174,24 +180,6 @@
           "isId": false
         },
         {
-          "name": "CopperClosureStatus",
-          "type": "CopperClosureStatus",
-          "isRequired": true,
-          "kind": "object",
-          "relationName": "CopperClosureToCopperClosureStatus",
-          "relationFromFields": [
-            "statusId"
-          ],
-          "relationToFields": [
-            "code"
-          ],
-          "isList": false,
-          "isId": false,
-          "isGenerated": false,
-          "sequence": false,
-          "hasDefaultValue": false
-        },
-        {
           "name": "Location",
           "type": "Location",
           "isRequired": true,
@@ -202,6 +190,24 @@
           ],
           "relationToFields": [
             "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "CopperClosureStatus",
+          "type": "CopperClosureStatus",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "CopperClosureToCopperClosureStatus",
+          "relationFromFields": [
+            "statusId"
+          ],
+          "relationToFields": [
+            "code"
           ],
           "isList": false,
           "isId": false,
@@ -268,12 +274,15 @@
           "id": "Dysfunction.id",
           "name": "id",
           "columnName": "id",
-          "type": "text",
+          "type": "integer",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
           "isGenerated": false,
-          "sequence": false,
+          "sequence": {
+            "identifier": "Dysfunction_id_seq",
+            "increment": 1
+          },
           "hasDefaultValue": false,
           "isId": true
         },
@@ -281,7 +290,7 @@
           "id": "Dysfunction.connectionId",
           "name": "connectionId",
           "columnName": "connectionId",
-          "type": "text",
+          "type": "integer",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
@@ -343,24 +352,6 @@
           "isId": false
         },
         {
-          "name": "DysfunctionStatus",
-          "type": "DysfunctionStatus",
-          "isRequired": true,
-          "kind": "object",
-          "relationName": "DysfunctionToDysfunctionStatus",
-          "relationFromFields": [
-            "statusId"
-          ],
-          "relationToFields": [
-            "code"
-          ],
-          "isList": false,
-          "isId": false,
-          "isGenerated": false,
-          "sequence": false,
-          "hasDefaultValue": false
-        },
-        {
           "name": "Connection",
           "type": "Connection",
           "isRequired": true,
@@ -371,6 +362,24 @@
           ],
           "relationToFields": [
             "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "DysfunctionStatus",
+          "type": "DysfunctionStatus",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "DysfunctionToDysfunctionStatus",
+          "relationFromFields": [
+            "statusId"
+          ],
+          "relationToFields": [
+            "code"
           ],
           "isList": false,
           "isId": false,
@@ -437,12 +446,15 @@
           "id": "Eligibility.id",
           "name": "id",
           "columnName": "id",
-          "type": "text",
+          "type": "integer",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
           "isGenerated": false,
-          "sequence": false,
+          "sequence": {
+            "identifier": "Eligibility_id_seq",
+            "increment": 1
+          },
           "hasDefaultValue": false,
           "isId": true
         },
@@ -450,7 +462,7 @@
           "id": "Eligibility.technologyId",
           "name": "technologyId",
           "columnName": "technologyId",
-          "type": "text",
+          "type": "integer",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
@@ -463,7 +475,7 @@
           "id": "Eligibility.userId",
           "name": "userId",
           "columnName": "userId",
-          "type": "text",
+          "type": "integer",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
@@ -476,7 +488,7 @@
           "id": "Eligibility.supplierId",
           "name": "supplierId",
           "columnName": "supplierId",
-          "type": "text",
+          "type": "integer",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
@@ -499,31 +511,13 @@
           "isId": false
         },
         {
-          "name": "EligibilityStatus",
-          "type": "EligibilityStatus",
+          "name": "Technology",
+          "type": "Technology",
           "isRequired": true,
           "kind": "object",
-          "relationName": "EligibilityToEligibilityStatus",
+          "relationName": "EligibilityToTechnology",
           "relationFromFields": [
-            "statusId"
-          ],
-          "relationToFields": [
-            "code"
-          ],
-          "isList": false,
-          "isId": false,
-          "isGenerated": false,
-          "sequence": false,
-          "hasDefaultValue": false
-        },
-        {
-          "name": "ISP",
-          "type": "ISP",
-          "isRequired": true,
-          "kind": "object",
-          "relationName": "EligibilityToISP",
-          "relationFromFields": [
-            "supplierId"
+            "technologyId"
           ],
           "relationToFields": [
             "id"
@@ -553,16 +547,34 @@
           "hasDefaultValue": false
         },
         {
-          "name": "Technology",
-          "type": "Technology",
+          "name": "ISP",
+          "type": "ISP",
           "isRequired": true,
           "kind": "object",
-          "relationName": "EligibilityToTechnology",
+          "relationName": "EligibilityToISP",
           "relationFromFields": [
-            "technologyId"
+            "supplierId"
           ],
           "relationToFields": [
             "id"
+          ],
+          "isList": false,
+          "isId": false,
+          "isGenerated": false,
+          "sequence": false,
+          "hasDefaultValue": false
+        },
+        {
+          "name": "EligibilityStatus",
+          "type": "EligibilityStatus",
+          "isRequired": true,
+          "kind": "object",
+          "relationName": "EligibilityToEligibilityStatus",
+          "relationFromFields": [
+            "statusId"
+          ],
+          "relationToFields": [
+            "code"
           ],
           "isList": false,
           "isId": false,
@@ -629,12 +641,15 @@
           "id": "ISP.id",
           "name": "id",
           "columnName": "id",
-          "type": "text",
+          "type": "integer",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
           "isGenerated": false,
-          "sequence": false,
+          "sequence": {
+            "identifier": "ISP_id_seq",
+            "increment": 1
+          },
           "hasDefaultValue": false,
           "isId": true
         },
@@ -697,12 +712,15 @@
           "id": "Location.id",
           "name": "id",
           "columnName": "id",
-          "type": "text",
+          "type": "integer",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
           "isGenerated": false,
-          "sequence": false,
+          "sequence": {
+            "identifier": "Location_id_seq",
+            "increment": 1
+          },
           "hasDefaultValue": false,
           "isId": true
         },
@@ -791,12 +809,15 @@
           "id": "Schema.id",
           "name": "id",
           "columnName": "id",
-          "type": "text",
+          "type": "integer",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
           "isGenerated": false,
-          "sequence": false,
+          "sequence": {
+            "identifier": "Schema_id_seq",
+            "increment": 1
+          },
           "hasDefaultValue": false,
           "isId": true
         },
@@ -817,7 +838,7 @@
           "id": "Schema.serviceId",
           "name": "serviceId",
           "columnName": "serviceId",
-          "type": "text",
+          "type": "integer",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
@@ -830,7 +851,7 @@
           "id": "Schema.versionId",
           "name": "versionId",
           "columnName": "versionId",
-          "type": "text",
+          "type": "integer",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
@@ -879,13 +900,13 @@
           "isId": false
         },
         {
-          "name": "SchemaVersion",
-          "type": "SchemaVersion",
+          "name": "Service",
+          "type": "Service",
           "isRequired": true,
           "kind": "object",
-          "relationName": "SchemaToSchemaVersion",
+          "relationName": "SchemaToService",
           "relationFromFields": [
-            "versionId"
+            "serviceId"
           ],
           "relationToFields": [
             "id"
@@ -897,13 +918,13 @@
           "hasDefaultValue": false
         },
         {
-          "name": "Service",
-          "type": "Service",
+          "name": "SchemaVersion",
+          "type": "SchemaVersion",
           "isRequired": true,
           "kind": "object",
-          "relationName": "SchemaToService",
+          "relationName": "SchemaToSchemaVersion",
           "relationFromFields": [
-            "serviceId"
+            "versionId"
           ],
           "relationToFields": [
             "id"
@@ -932,12 +953,15 @@
           "id": "SchemaVersion.id",
           "name": "id",
           "columnName": "id",
-          "type": "text",
+          "type": "integer",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
           "isGenerated": false,
-          "sequence": false,
+          "sequence": {
+            "identifier": "SchemaVersion_id_seq",
+            "increment": 1
+          },
           "hasDefaultValue": false,
           "isId": true
         },
@@ -1025,12 +1049,15 @@
           "id": "Service.id",
           "name": "id",
           "columnName": "id",
-          "type": "text",
+          "type": "integer",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
           "isGenerated": false,
-          "sequence": false,
+          "sequence": {
+            "identifier": "Service_id_seq",
+            "increment": 1
+          },
           "hasDefaultValue": false,
           "isId": true
         },
@@ -1118,12 +1145,15 @@
           "id": "Subscription.id",
           "name": "id",
           "columnName": "id",
-          "type": "text",
+          "type": "integer",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
           "isGenerated": false,
-          "sequence": false,
+          "sequence": {
+            "identifier": "Subscription_id_seq",
+            "increment": 1
+          },
           "hasDefaultValue": false,
           "isId": true
         },
@@ -1131,7 +1161,7 @@
           "id": "Subscription.ownerId",
           "name": "ownerId",
           "columnName": "ownerId",
-          "type": "text",
+          "type": "integer",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
@@ -1144,7 +1174,7 @@
           "id": "Subscription.supplierId",
           "name": "supplierId",
           "columnName": "supplierId",
-          "type": "text",
+          "type": "integer",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
@@ -1167,16 +1197,16 @@
           "isId": false
         },
         {
-          "name": "SubscriptionStatus",
-          "type": "SubscriptionStatus",
+          "name": "User",
+          "type": "User",
           "isRequired": true,
           "kind": "object",
-          "relationName": "SubscriptionToSubscriptionStatus",
+          "relationName": "SubscriptionToUser",
           "relationFromFields": [
-            "statusId"
+            "ownerId"
           ],
           "relationToFields": [
-            "code"
+            "id"
           ],
           "isList": false,
           "isId": false,
@@ -1203,16 +1233,16 @@
           "hasDefaultValue": false
         },
         {
-          "name": "User",
-          "type": "User",
+          "name": "SubscriptionStatus",
+          "type": "SubscriptionStatus",
           "isRequired": true,
           "kind": "object",
-          "relationName": "SubscriptionToUser",
+          "relationName": "SubscriptionToSubscriptionStatus",
           "relationFromFields": [
-            "ownerId"
+            "statusId"
           ],
           "relationToFields": [
-            "id"
+            "code"
           ],
           "isList": false,
           "isId": false,
@@ -1293,12 +1323,15 @@
           "id": "Technology.id",
           "name": "id",
           "columnName": "id",
-          "type": "text",
+          "type": "integer",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
           "isGenerated": false,
-          "sequence": false,
+          "sequence": {
+            "identifier": "Technology_id_seq",
+            "increment": 1
+          },
           "hasDefaultValue": false,
           "isId": true
         },
@@ -1387,12 +1420,15 @@
           "id": "User.id",
           "name": "id",
           "columnName": "id",
-          "type": "text",
+          "type": "integer",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,
           "isGenerated": false,
-          "sequence": false,
+          "sequence": {
+            "identifier": "User_id_seq",
+            "increment": 1
+          },
           "hasDefaultValue": false,
           "isId": true
         },
@@ -1426,7 +1462,7 @@
           "id": "User.locationId",
           "name": "locationId",
           "columnName": "locationId",
-          "type": "text",
+          "type": "integer",
           "isRequired": true,
           "kind": "scalar",
           "isList": false,

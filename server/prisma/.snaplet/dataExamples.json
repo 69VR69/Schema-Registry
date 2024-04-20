@@ -163,10 +163,6 @@
     "examples": []
   },
   {
-    "shape": "UUID",
-    "examples": []
-  },
-  {
     "shape": "TAX_CODE",
     "examples": []
   }

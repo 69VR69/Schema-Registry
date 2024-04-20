@@ -7,7 +7,7 @@ export class ConnectionDataSource {
 
     constructor(dbConnection: any) {
         this.dbConnection = dbConnection;
-        this.connectionLoader = new DataLoader(async (connectionIds: String[]) => {
+        this.connectionLoader = new DataLoader(async (connectionIds: number[]) => {
             const connections = await this.dbConnection.connection.findMany({
                 where: {
                     id: {
@@ -15,7 +15,7 @@ export class ConnectionDataSource {
                     },
                 },
             });
-            return connectionIds.map((connectionId: String) =>
+            return connectionIds.map((connectionId: number) =>
                 connections.find((connection: Connection) => connection.id === connectionId)
             );
         });

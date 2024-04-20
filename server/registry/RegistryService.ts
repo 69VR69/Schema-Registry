@@ -7,7 +7,7 @@ export class RegistryService {
         this.repository = new RegistryRepository(dbConnection);
     }
 
-    async getSchema(id: string) {
+    async getSchema(id: number) {
         return this.repository.getSchemaById(id);
     }
 

@@ -7,7 +7,7 @@ export class RegistryRepository {
         this.dbConnection = dbConnection;
     }
 
-    async getSchemaById(id: string) : Promise<Schema>{
+    async getSchemaById(id: number) : Promise<Schema>{
         return this.dbConnection.schema.findUnique({
             where: {
                 id: id,
@@ -15,7 +15,7 @@ export class RegistryRepository {
         });
     }
 
-    async getSchemasByServiceId(serviceId: string) : Promise<Schema[]>{
+    async getSchemasByServiceId(serviceId: number) : Promise<Schema[]>{
         return this.dbConnection.schema.findMany({
             where: {
                 serviceId: serviceId,
@@ -67,7 +67,7 @@ export class RegistryRepository {
         });
     }
 
-    async getVersionById(id: string): Promise<Version> {
+    async getVersionById(id: number): Promise<Version> {
         return this.dbConnection.schemaVersion.findUnique({
             where: {
                 id: id,

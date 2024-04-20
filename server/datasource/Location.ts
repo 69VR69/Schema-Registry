@@ -7,7 +7,7 @@ export class LocationDataSource {
 
     constructor(dbConnection: any) {
         this.dbConnection = dbConnection;
-        this.locationLoader = new DataLoader(async (locationIds: String[]) => {
+        this.locationLoader = new DataLoader(async (locationIds: number[]) => {
             const locations = await this.dbConnection.location.findMany({
                 where: {
                     id: {
@@ -15,7 +15,7 @@ export class LocationDataSource {
                     },
                 },
             });
-            return locationIds.map((locationId: String) =>
+            return locationIds.map((locationId: number) =>
                 locations.find((location: Location) => location.id === locationId)
             );
         });

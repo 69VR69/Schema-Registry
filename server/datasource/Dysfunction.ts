@@ -7,7 +7,7 @@ export class DysfunctionDataSource {
 
     constructor(dbConnection: any) {
         this.dbConnection = dbConnection;
-        this.dysfunctionLoader = new DataLoader(async (dysfunctionIds: String[]) => {
+        this.dysfunctionLoader = new DataLoader(async (dysfunctionIds: number[]) => {
             const dysfunctions = await this.dbConnection.dysfunction.findMany({
                 where: {
                     id: {
@@ -15,7 +15,7 @@ export class DysfunctionDataSource {
                     },
                 },
             });
-            return dysfunctionIds.map((dysfunctionId: String) =>
+            return dysfunctionIds.map((dysfunctionId: number) =>
                 dysfunctions.find((dysfunction: Dysfunction) => dysfunction.id === dysfunctionId)
             );
         });

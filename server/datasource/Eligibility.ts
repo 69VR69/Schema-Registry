@@ -7,7 +7,7 @@ export class EligibilityDataSource {
 
     constructor(dbConnection: any) {
         this.dbConnection = dbConnection;
-        this.eligibilityLoader = new DataLoader(async (eligibilityIds: String[]) => {
+        this.eligibilityLoader = new DataLoader(async (eligibilityIds: number[]) => {
             const eligibilities = await this.dbConnection.eligibility.findMany({
                 where: {
                     id: {
@@ -15,7 +15,7 @@ export class EligibilityDataSource {
                     },
                 },
             });
-            return eligibilityIds.map((eligibilityId: String) =>
+            return eligibilityIds.map((eligibilityId: number) =>
                 eligibilities.find((eligibility: Eligibility) => eligibility.id === eligibilityId)
             );
         });
