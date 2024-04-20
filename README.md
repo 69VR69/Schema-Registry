@@ -12,6 +12,7 @@ This project uses the following dependencies:
 - `@prisma/client`: For database operations using Prisma.
 - Your own `graphql-resolvers` and `graphql-schema` modules.
 - Your own `ConnectionDataSource` module.
+- `@snaplet` : For seeding the database
 
 ## Setup
 
@@ -43,8 +44,6 @@ cd ./server
 npm run start
 ```
 
-By default, the server will start in mocked mode. To disable this, set the IS_MOCKED constant in index.ts to false.
-
 The server will start at http://localhost:4000.
 
 5. Running the Client
@@ -61,6 +60,34 @@ The client will start at http://localhost:5173.
 
 To update the database schema use the command
 ```bash
-npx prisma migrate dev --name <NameOfMigration>
-npx prisma generate
+npm run update-schema
 ```
+
+To seed the database use the command
+```bash
+npx prisma schema seed
+```
+To visualize the database datas use the command
+```bash
+npm run visualize-schema
+```
+
+# Project's workflow
+1) The procuder create some data on his side
+2) The producer retrieves the _schema_id_ of its schema via a GET API on our server
+3) The producer sends its data via the API POST with the following body:
+```xml
+{
+  schema_id: <schema_id>,
+  data: <producer_data>
+}
+```
+4) Our server retrieves the schema from the _schema_id_.
+5) Our server validates the schema with your method
+6) 
+    1) Validation fails => server returns HTTP error to producer and stops there
+    2) Validation works => the server returns an HTTP success code and sends the data to the kafka broker
+7) the consumer is automatically notified of the new data by the broker
+8) consumer retrieves data via request (same content as step 3)
+9) the consumer retrieves the schema from the server via a GET `/schema_id_` call
+10) the consumer parse the data with the schema

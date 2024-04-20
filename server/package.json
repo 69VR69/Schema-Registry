@@ -8,7 +8,7 @@
     "compile": "tsc",
     "start": "npm run compile && node ./dist/index.js",
     "update-schema": "npx prisma migrate dev --name update-schema && npx @snaplet/seed sync --config ./prisma/seed.config.ts",
-    "schema-visualize": "npx prisma db pull && npx prisma studio"
+    "visualize-schema": "npx prisma db pull && npx prisma studio"
   },
   "dependencies": {
     "@apollo/server": "^4.10.1",
