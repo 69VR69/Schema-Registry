@@ -5,6 +5,7 @@ import * as ds from './datasource/datasources.dependencies.js';
 import { resolvers } from './graphql/graphql-resolvers.js';
 import { typeDefs } from './graphql/graphql-schema.js';
 import express from 'express';
+import { KafkaController } from './kafka/KafkaController.js';
 
 const server = new ApolloServer({
     typeDefs,
@@ -54,6 +55,8 @@ await startStandaloneServer(server, {
 
 // Express server
 const apiApp = express();
+const kafka = new KafkaController();
+await kafka.initKafka();
 
 /* Schema */
 // GET list of schemas

@@ -1,4 +1,4 @@
-import { Kafka, Logger, Producer } from "kafkajs";
+import { Kafka, Logger, Partitioners, Producer } from "kafkajs";
 
 export class KafkaController
 {
@@ -19,7 +19,7 @@ export class KafkaController
         });
 
         // Initialize Producer
-        this.producer = kafka.producer();
+        this.producer = kafka.producer({ createPartitioner: Partitioners.DefaultPartitioner });
 
         // Initialize Logger
         this.logger = kafka.logger();
