@@ -54,7 +54,7 @@ cd ./client
 npm run dev
 ```
 
-The client will start at http://localhost:5173.
+The client will start at http://localhost:4224.
 
 # Prisma
 
