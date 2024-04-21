@@ -101,6 +101,48 @@
   },
   {
     "schemaName": "",
+    "tableName": "Schema",
+    "predictions": [
+      {
+        "input": " schema name",
+        "column": "name",
+        "shape": "DATABASE_SCHEMA",
+        "confidence": 0.6093107461929321,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "",
+    "tableName": "SchemaVersion",
+    "predictions": [
+      {
+        "input": " schema_version content",
+        "column": "content",
+        "shape": "SYSTEM_SEMVER",
+        "confidence": 0.9493241310119629,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "",
+    "tableName": "Service",
+    "predictions": [
+      {
+        "input": " service name",
+        "column": "name",
+        "shape": "COMPANY_NAME",
+        "confidence": 0.5915936827659607,
+        "context": "GENERAL",
+        "confidenceContext": 0
+      }
+    ]
+  },
+  {
+    "schemaName": "",
     "tableName": "SubscriptionStatus",
     "predictions": [
       {

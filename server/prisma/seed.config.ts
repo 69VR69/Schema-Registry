@@ -9,8 +9,5 @@ export default defineConfig({
   },
   select: [
     "!*_prisma_migrations",
-    "!Service",
-    "!Schema",
-    "!SchemaVersion",
   ],
 });

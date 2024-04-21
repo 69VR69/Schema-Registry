@@ -1,4 +1,5 @@
 import { createSeedClient } from "@snaplet/seed";
+import { getRandomQuerySchema } from "./jsonGraphqlSchema.js";
 
 const seed = await createSeedClient();
 
@@ -65,6 +66,14 @@ await seed.Connection((x) => x(45), { connect: true });
 await seed.Dysfunction((x) => x(25), { connect: true });
 await seed.Eligibility((x) => x(50), { connect: true });
 await seed.CopperClosure((x) => x(23), { connect: true });
+
+// Seed Service
+await seed.Service((x) => x(5), { connect: true });
+// Seed schemaVersion but content will be some GraphQL Json, sub-parts of the graphqlSchema using the seed in the getRandomQuerySchema function
+await seed.SchemaVersion((x) => x(7,
+    ({ seed }) => ({ content: getRandomQuerySchema(seed) })
+), { connect: true });
+await seed.Schema((x) => x(7), { connect: true });
 
 console.log("Seeding completed")
 

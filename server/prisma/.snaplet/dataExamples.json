@@ -45,6 +45,10 @@
     "examples": []
   },
   {
+    "shape": "SYSTEM_SEMVER",
+    "examples": []
+  },
+  {
     "shape": "FINANCE_TRANSACTION_DESCRIPTION",
     "examples": [
       "withdrawal transaction at Predovic Inc using card ending with ***(...6210) for SBD 570.15 in account ***33786543",
@@ -165,5 +169,65 @@
   {
     "shape": "TAX_CODE",
     "examples": []
+  },
+  {
+    "shape": "DATABASE_SCHEMA",
+    "examples": [
+      "information_schema",
+      "accounts",
+      "public",
+      "users",
+      "config",
+      "information_schema",
+      "accounts",
+      "public",
+      "users",
+      "config",
+      "information_schema",
+      "accounts",
+      "public",
+      "users",
+      "config",
+      "information_schema",
+      "accounts",
+      "public",
+      "users",
+      "config",
+      "information_schema",
+      "accounts",
+      "public",
+      "users",
+      "config",
+      "information_schema",
+      "accounts",
+      "public",
+      "users",
+      "config",
+      "information_schema",
+      "accounts",
+      "public",
+      "users",
+      "config",
+      "information_schema",
+      "accounts",
+      "public",
+      "users",
+      "config",
+      "information_schema",
+      "accounts",
+      "public",
+      "users",
+      "config",
+      "information_schema",
+      "accounts",
+      "public",
+      "users",
+      "config",
+      "information_schema",
+      "accounts",
+      "public",
+      "users",
+      "config"
+    ]
   }
 ]
