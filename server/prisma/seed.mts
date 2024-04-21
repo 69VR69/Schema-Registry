@@ -1,5 +1,5 @@
 import { createSeedClient } from "@snaplet/seed";
-import { getRandomQuerySchema } from "./jsonGraphqlSchema.js";
+import { getRandomQuerySchema } from "./JsonGraphqlSchema.js";
 
 const seed = await createSeedClient();
 
