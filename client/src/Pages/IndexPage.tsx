@@ -2,15 +2,14 @@ import Header from "../Components/Header";
 import { useState, useEffect } from "react";
 
 export default function HomePage() {
-    const [selectSchemaId, setSelectSchemaId] = useState("1");
+    const [selectSchemaId, setSelectSchemaId] = useState(1);
     const [content, setContent] = useState("");
     const [schemaList, setSchemaList] = useState([]);
+    const [messageResult, setMessageResult] = useState({ text: "", type: "" });
 
     const handleFormSubmit = async (e) => {
-        console.log(selectSchemaId, content);
         e.preventDefault();
         try {
-            
             const response = await fetch('http://localhost:2400/data', {
                 method: 'POST',
                 headers: {
@@ -22,12 +21,12 @@ export default function HomePage() {
                 })
             });
             if (response.ok) {
-                console.log("heeererere");
-                console.log(response);
+                setMessageResult({ text: 'Data sent to Kafka successfully', type: 'success' });
             } else {
-                // errorrs
+                setMessageResult({ text: 'Failed to send data to Kafka', type: 'error' });
             }
         } catch (error) {
+            setMessageResult({ text: 'An error occurred while sending data', type: 'error' });
             console.log(error);
         }
     };
@@ -40,7 +39,7 @@ export default function HomePage() {
                     const data = await response.json();
                     setSchemaList(data);
                 } else {
-                    // errorrs
+                    // Handle errors
                 }
             } catch (error) {
                 console.error(error);
@@ -57,7 +56,7 @@ export default function HomePage() {
                 <div className="col-span-3 bg-fuchsia-100 rounded-md p-5">
                     <div className=" col-span-3">
                         <h1 className="font-bold underline">Schema List</h1>
-                        <select value={selectSchemaId} onChange={e => setSelectSchemaId(e.target.value)} >
+                        <select value={selectSchemaId} onChange={e => setSelectSchemaId(Number(e.target.value))} >
                             {schemaList.map(schema => (
                                 <option key={schema.id} value={schema.id}>{schema.name}</option>
                             ))}
@@ -70,6 +69,7 @@ export default function HomePage() {
                             <div className=" grid grid-cols-6">
                                 <div className=" col-span-3">
                                     <h1>Response results</h1>
+                                    <div className={messageResult.type === 'success' ? 'text-green-500' : 'text-red-500'}>{messageResult.text}</div>
                                 </div>
                                 <div className=" col-span-3">
                                     <button type="submit" className=" bg-blue-500 hover:bg-blue-700 rounded-md text-white px-4 py-1">Send to server</button>
