@@ -7,9 +7,11 @@ export default function HomePage() {
     const [schemaList, setSchemaList] = useState([]);
 
     const handleFormSubmit = async (e) => {
+        console.log(selectSchemaId, content);
         e.preventDefault();
         try {
-            const response = await fetch('http://localhost:2400/schema', {
+            
+            const response = await fetch('http://localhost:2400/data', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

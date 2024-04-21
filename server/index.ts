@@ -11,6 +11,8 @@ import { KafkaController } from './kafka/KafkaController.js';
 import { RegistryService } from './registry/RegistryService.js';
 import { validateContent } from './registry/SchemaValidation.js';
 import { SchemaWithVersion } from './types.js';
+import { Request, Response } from 'express'
+import { versions } from 'process';
 
 const server = new ApolloServer({
     typeDefs,
@@ -58,6 +60,9 @@ const docker = new Docker();
 // Utilisez le middleware cors pour autoriser les requêtes cross-origin
 apiApp.use(cors());
 
+// Ajoutez le middleware express.json() pour analyser les corps de requête en JSON
+apiApp.use(express.json());
+
 /* Schema */
 // GET list of schemas
 apiApp.get('/schema', (req, res) => {
@@ -100,36 +105,40 @@ apiApp.post('/schema', (req, res) => {
 
 /* Data */
 // POST a new data
-apiApp.post('/data', (req, res) => {
+apiApp.post('/data', (req:Request, res:Response) => {
+  
     // Parse the schemaId from the request body
     const schemaId = req.body.schemaId;
     // Get the schema from the database
     registryService.repository.getSchemaById(schemaId)
-        .then((schema: SchemaWithVersion) => {
+    .then(async (schema: SchemaWithVersion) => {
+        try {
             // Get the content of the latest version
-            const schemaContent = schema.versions.content;
+            const version = await registryService.repository.getVersionById(schema.versionId);
+            console.log("eheeeeeeeeeee", version);
+            const schemaContent = version.content;
             // Validate the data
             if (validateContent(schemaContent, req.body.content)) {
                 const topic = schema.name;
                 // Send the data to Kafka
-                kafka.send(req.body.content, topic)
-                    .then((result) => {
-                        if (result) {
-                            res.status(201)
-                                .send('Data sent to Kafka');
-                        }
-                        else {
-                            res.status(400)
-                                .send('Invalid data');
-                        }
-                    });
+                const result = await kafka.send(req.body.content, topic);
+                if (result) {
+                    res.status(201).send('Data sent to Kafka');
+                } else {
+                    res.status(400).send('Invalid data');
+                }
+            } else {
+                res.status(400).send('Invalid data');
             }
-            else {
-                res.status(400)
-                    .send('Invalid data');
-            }
-        })
-
+        } catch (error) {
+            console.error(error);
+            res.status(500).send('Internal server error');
+        }
+    })
+    .catch((error) => {
+        console.error(error);
+        res.status(500).send('Internal server error');
+    })
 });
 
 apiApp.listen(2400, () => {
