@@ -1,9 +1,10 @@
 import Header from "../Components/Header";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function HomePage() {
     const [selectSchemaId, setSelectSchemaId] = useState("1");
     const [content, setContent] = useState("");
+    const [schemaList, setSchemaList] = useState([]);
 
     const handleFormSubmit = async (e) => {
         e.preventDefault();
@@ -29,6 +30,23 @@ export default function HomePage() {
         }
     };
 
+    useEffect(() => {
+        const fetchSchemaList = async () => {
+            try {
+                const response = await fetch('http://localhost:2400/schema');
+                if (response.ok) {
+                    const data = await response.json();
+                    setSchemaList(data);
+                } else {
+                    // errorrs
+                }
+            } catch (error) {
+                console.error(error);
+            }
+        };
+        fetchSchemaList();
+    }, []);
+
     return (
         <div className="px-10">
             <Header/>
@@ -38,10 +56,9 @@ export default function HomePage() {
                     <div className=" col-span-3">
                         <h1 className="font-bold underline">Schema List</h1>
                         <select value={selectSchemaId} onChange={e => setSelectSchemaId(e.target.value)} >
-                            <option value="1">Schema 1</option>
-                            <option value="2">Schema 2</option>
-                            <option value="3">Schema 3</option>
-                            <option value="4">Schema 4</option>
+                            {schemaList.map(schema => (
+                                <option key={schema.id} value={schema.id}>{schema.name}</option>
+                            ))}
                         </select>
                     </div>
                     <div className=" col-span-3">
